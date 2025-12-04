@@ -91,8 +91,9 @@ feature {NONE} -- Generation
 			generate_probable_page
 			generate_old_way_page
 			generate_ai_changes_page
+			generate_contact_page
 
-			print ("%N  Generated 11 pages%N")
+			print ("%N  Generated 12 pages%N")
 		end
 
 feature {NONE} -- Page Generation
@@ -207,6 +208,16 @@ feature {NONE} -- Page Generation
 			print ("  [OK] /ai-changes -> docs/ai-changes/index.html%N")
 		end
 
+	generate_contact_page
+			-- Generate contact page
+		local
+			l_page: SSC_CONTACT_PAGE
+		do
+			create l_page.make
+			write_file ("docs/contact/index.html", l_page.to_html)
+			print ("  [OK] /contact -> docs/contact/index.html%N")
+		end
+
 feature {NONE} -- File Operations
 
 	write_file (a_path, a_content: STRING)
@@ -229,9 +240,9 @@ feature {NONE} -- Constants
 		once
 			Result := <<"get-started", "portfolio", "design-by-contract", "workflow",
 				"analysis", "business-case", "why-eiffel", "probable-to-provable",
-				"old-way", "ai-changes">>
+				"old-way", "ai-changes", "contact">>
 		ensure
-			ten_directories: Result.count = 10
+			eleven_directories: Result.count = 11
 		end
 
 end
