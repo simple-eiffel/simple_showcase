@@ -67,6 +67,7 @@ feature {NONE} -- HTML Structure
 			Result.append ("<head>%N")
 			Result.append ("  <meta charset=%"UTF-8%">%N")
 			Result.append ("  <meta name=%"viewport%" content=%"width=device-width, initial-scale=1.0%">%N")
+			Result.append ("  " + base_tag + "%N")
 			Result.append ("  <title>" + page_title + " | Simple Showcase</title>%N")
 			Result.append ("  <meta name=%"description%" content=%"" + page_subtitle + "%">%N")
 			Result.append ("  <script src=%"" + tailwind_cdn + "%"></script>%N")

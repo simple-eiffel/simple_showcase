@@ -65,6 +65,20 @@ feature -- Common Classes
 
 	container_wide: STRING = "max-w-6xl mx-auto"
 
+feature -- Base URL (for GitHub Pages)
+
+	base_url: STRING = "/simple_showcase"
+			-- Base URL path for GitHub Pages deployment
+			-- Use empty string for localhost, "/simple_showcase" for GitHub Pages
+
+	base_tag: STRING
+			-- HTML base tag for proper link resolution
+		do
+			Result := "<base href=%"" + base_url + "/%">"
+		ensure
+			not_empty: not Result.is_empty
+		end
+
 feature -- CDN URLs
 
 	tailwind_cdn: STRING = "https://cdn.tailwindcss.com"
