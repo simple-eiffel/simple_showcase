@@ -6,7 +6,12 @@ note
 		All pages are generated dynamically from Eiffel classes.
 
 		Usage:
-			Run the executable, then browse to http://localhost:8080
+			Run the executable, then browse to configured URL.
+			Default: http://localhost:8080
+
+		Configuration:
+			Reads from config.json in current directory.
+			Use config.production.json for deployment.
 	]"
 	author: "Larry Rix with Claude (Anthropic)"
 	date: "$Date$"
@@ -19,25 +24,45 @@ inherit
 	SSC_LOGGER
 
 create
-	make
+	make,
+	make_with_config
 
 feature {NONE} -- Initialization
 
 	make
-			-- Create and start the server
+			-- Create and start the server with default config
 		do
-			print ("%N========================================%N")
-			print ("   SSC LOGGING ENABLED - VERBOSE MODE%N")
-			print ("========================================%N%N")
-			io.output.flush
+			make_with_config ("config.json")
+		end
+
+	make_with_config (a_config_path: STRING)
+			-- Create and start the server with config from `a_config_path`
+		require
+			path_not_empty: not a_config_path.is_empty
+		do
+			create config.make (a_config_path)
+
+			if config.verbose_logging then
+				print ("%N========================================%N")
+				print ("   SSC SERVER - " + config.mode.as_upper + " MODE%N")
+				print ("========================================%N%N")
+				io.output.flush
+			end
+
 			log_info ("server", "=== Simple Showcase Server Starting ===")
-			create server.make (8080)
-			log_info ("server", "Server created on port 8080")
+			log_info ("server", "Mode: " + config.mode)
+
+			create server.make (config.port)
+			log_info ("server", "Server created on port " + config.port.out)
+
 			register_routes
 			log_info ("server", "Routes registered")
+
 			print ("%NSimple Showcase Server%N")
 			print ("=======================%N")
-			print ("Open browser to: http://localhost:8080%N%N")
+			print ("Mode: " + config.mode + "%N")
+			print ("Open browser to: " + config.base_url + "%N%N")
+
 			server.use_logging
 			log_info ("server", "Logging middleware enabled")
 			log_info ("server", "Calling server.start (blocking)...")
@@ -48,6 +73,9 @@ feature -- Server
 
 	server: SIMPLE_WEB_SERVER
 			-- HTTP server instance
+
+	config: SSC_CONFIG
+			-- Server configuration
 
 feature {NONE} -- Route Registration
 

@@ -2129,3 +2129,15 @@
 [13:07:00.635] [109] [DEBUG] [html    ]   HTML wrapper complete
 [13:07:00.641] [110] [INFO ] [page    ]   Full page generated: 32618 bytes
 [13:07:00.641] [111] [TRACE] [exit    ] <<< SSC_LANDING_PAGE.to_html
+[13:35:15.309] [1] [DEBUG] [config  ] mode=development, port=8080, base_url=http://localhost:8080
+[13:35:15.329] [2] [INFO ] [config  ] Loaded configuration from config.json
+[13:35:15.330] [3] [INFO ] [server  ] === Simple Showcase Server Starting ===
+[13:35:15.331] [4] [INFO ] [server  ] Mode: development
+[13:35:15.332] [5] [INFO ] [server  ] Server created on port 8080
+[13:35:15.333] [6] [DEBUG] [routes  ] Registering page routes...
+[13:35:15.334] [7] [DEBUG] [routes  ]   GET / -> handle_landing
+[13:35:15.335] [8] [DEBUG] [routes  ]   Registered 10 sub-page routes
+[13:35:15.336] [9] [DEBUG] [routes  ]   Registered .html redirect routes
+[13:35:15.338] [10] [INFO ] [server  ] Routes registered
+[13:35:15.340] [11] [INFO ] [server  ] Logging middleware enabled
+[13:35:15.340] [12] [INFO ] [server  ] Calling server.start (blocking)...

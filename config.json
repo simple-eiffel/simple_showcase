@@ -1,0 +1,9 @@
+{
+	"mode": "development",
+	"port": 8080,
+	"base_url": "http://localhost:8080",
+	"contact_email": "rix.larry@gmail.com",
+	"db_path": "showcase_dev.db",
+	"log_level": "debug",
+	"verbose_logging": true
+}

@@ -142,6 +142,7 @@ SIMPLE_SHOWCASE=D:\prod\simple_showcase
 SIMPLE_ALPINE=D:\prod\simple_alpine
 SIMPLE_HTMX=D:\prod\simple_htmx
 SIMPLE_WEB=D:\prod\simple_web
+SIMPLE_JSON=D:\prod\simple_json
 TESTING_EXT=D:\prod\testing_ext
 ```
 

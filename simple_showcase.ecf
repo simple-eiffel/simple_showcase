@@ -17,6 +17,7 @@
 		<library name="simple_htmx" location="$SIMPLE_HTMX\simple_htmx.ecf"/>
 		<library name="simple_alpine" location="$SIMPLE_ALPINE\simple_alpine.ecf"/>
 		<library name="simple_web" location="$SIMPLE_WEB\simple_web.ecf"/>
+		<library name="simple_json" location="$SIMPLE_JSON\simple_json.ecf"/>
 		<cluster name="core" location=".\src\core\" recursive="true"/>
 		<cluster name="pages" location=".\src\pages\" recursive="true"/>
 		<cluster name="components" location=".\src\components\" recursive="true"/>

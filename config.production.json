@@ -1,0 +1,9 @@
+{
+	"mode": "production",
+	"port": 80,
+	"base_url": "https://YOUR_DOMAIN_HERE.com",
+	"contact_email": "rix.larry@gmail.com",
+	"db_path": "showcase.db",
+	"log_level": "info",
+	"verbose_logging": false
+}
