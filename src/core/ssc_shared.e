@@ -35,11 +35,11 @@ feature -- Color Palette
 
 feature -- Typography Classes
 
-	font_hero_headline: STRING = "text-4xl sm:text-5xl md:text-[6vw] lg:text-[8vw] font-light tracking-[-0.02em] leading-normal"
-			-- Responsive hero headline: 4xl on mobile, scales up to 8vw on desktop (leading-normal = 1.5)
+	font_hero_headline: STRING = "text-4xl sm:text-5xl md:text-[6vw] lg:text-[8vw] font-light tracking-[-0.02em] leading-relaxed"
+			-- Responsive hero headline: 4xl on mobile, scales up to 8vw on desktop (leading-relaxed = 1.625)
 
-	font_section_headline: STRING = "text-2xl sm:text-3xl md:text-[4vw] lg:text-[5vw] font-medium leading-normal"
-			-- Responsive section headline: 2xl on mobile, scales up to 5vw on desktop (leading-normal = 1.5)
+	font_section_headline: STRING = "text-2xl sm:text-3xl md:text-[4vw] lg:text-[5vw] font-medium leading-relaxed"
+			-- Responsive section headline: 2xl on mobile, scales up to 5vw on desktop (leading-relaxed = 1.625)
 
 	font_body: STRING = "text-base sm:text-lg leading-relaxed"
 			-- Responsive body text: base on mobile, lg on larger screens
