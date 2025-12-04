@@ -91,7 +91,7 @@ feature {NONE} -- Content
 				.raw_html (project_card ("simple_htmx", "4,200", "40", "Fluent HTML/HTMX builder", 4))
 				.raw_html (project_card ("simple_alpine", "3,200", "103", "Alpine.js directives", 5))
 				.raw_html (project_card ("simple_ci", "1,600", "", "Homebrew CI tool", 6))
-				.raw_html (project_card ("simple_gui_designer", "7,000", "10", "Visual GUI spec designer", 7))
+				.raw_html (project_card ("simple_gui_designer", "7,000", "10", "Visual GUI spec designer (WIP)", 7))
 				.raw_html (project_card ("simple_process", "500", "4", "Process execution helper", 8))
 				.raw_html (project_card ("simple_randomizer", "1,100", "27", "Random data generation", 9))
 				.raw_html (project_card ("simple_ai_client", "", "", "AI API integration", 10))

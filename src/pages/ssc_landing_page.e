@@ -45,8 +45,10 @@ feature {NONE} -- Initialization
 			create invitation_section.make
 			log_debug ("page", "  Creating nav_overlay...")
 			create nav_overlay.make
+			log_debug ("page", "  Creating hamburger_menu (hidden until scroll)...")
+			create hamburger_menu.make_hidden_until_scroll
 
-			log_info ("page", "All 9 sections + nav overlay created")
+			log_info ("page", "All 9 sections + nav overlay + hamburger menu created")
 			log_exit ("SSC_LANDING_PAGE.make")
 		ensure
 			hero_created: hero_section /= Void
@@ -59,6 +61,7 @@ feature {NONE} -- Initialization
 			workflow_created: workflow_section /= Void
 			invitation_created: invitation_section /= Void
 			nav_created: nav_overlay /= Void
+			hamburger_created: hamburger_menu /= Void
 		end
 
 feature -- Access
@@ -79,6 +82,7 @@ feature -- Sections
 	workflow_section: SSC_WORKFLOW_SECTION
 	invitation_section: SSC_INVITATION_SECTION
 	nav_overlay: SSC_NAV_OVERLAY
+	hamburger_menu: SSC_HAMBURGER_MENU
 
 feature -- Generation
 
@@ -149,6 +153,10 @@ feature -- Generation
 			-- Add nav overlay (outside scroll container, fixed position)
 			log_debug ("page", "Adding nav overlay...")
 			Result.append (nav_overlay.to_html)
+
+			-- Add hamburger menu (hidden until scroll on landing)
+			log_debug ("page", "Adding hamburger menu...")
+			Result.append (hamburger_menu.to_html)
 
 			log_html_size ("body_content", Result)
 			log_exit ("SSC_LANDING_PAGE.body_content")

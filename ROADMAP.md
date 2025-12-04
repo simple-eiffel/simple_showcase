@@ -56,7 +56,7 @@ rm -rf EIFGENs && "/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/
 
 ### Current Status
 
-**Phase 1 Complete** - Landing page fully functional with smooth scrolling and navigation
+**Phase 2 Complete** - All 11 sub-pages implemented with universal hamburger navigation
 
 Completed work:
 - ✅ Project structure created
@@ -74,6 +74,12 @@ Completed work:
 - ✅ Third column in Workflow section (DBC/Eiffel as "the airplane")
 - ✅ Full contract review pass with preconditions/postconditions/invariants
 - ✅ Compiles clean with contracts enabled
+- ✅ **Phase 2: All 11 sub-pages implemented**
+- ✅ SSC_SUB_PAGE - Base class for sub-pages with common structure
+- ✅ SSC_HAMBURGER_MENU - Universal navigation component
+- ✅ YouTube video cards on workflow page
+- ✅ Citation URLs verified and corrected
+- ✅ WIP notation for simple_gui_designer
 
 ---
 
@@ -168,22 +174,29 @@ TESTING_EXT=D:\prod\testing_ext
 | **Test compilation** | Verify all compiles with contracts | ✅ |
 | **Visual refinement** | Test in browser | ✅ |
 
-### Phase 2 - Sub-Pages
+### Phase 2 - Sub-Pages ✅ COMPLETE
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| **Get Started page** | Quick start guide | Backlog |
-| **Portfolio page** | Full project details | Backlog |
-| **DBC page** | How contracts work | Backlog |
-| **Workflow page** | Detailed methodology | Backlog |
-| **Business Case page** | ROI analysis | Backlog |
+| **SSC_SUB_PAGE** | Base class for all sub-pages | ✅ |
+| **SSC_HAMBURGER_MENU** | Universal hamburger navigation | ✅ |
+| **Get Started page** | Quick start guide | ✅ |
+| **Portfolio page** | Full project details + GitHub links | ✅ |
+| **Design by Contract page** | How contracts work | ✅ |
+| **Workflow page** | Methodology + YouTube videos | ✅ |
+| **Analysis page** | Competitive analysis with citations | ✅ |
+| **Business Case page** | ROI analysis | ✅ |
+| **Why Eiffel page** | Language choice explained | ✅ |
+| **Probable to Provable page** | Core framework philosophy | ✅ |
+| **The Old Way page** | Traditional approach costs | ✅ |
+| **AI Changes page** | What AI actually changes | ✅ |
 
 ### Phase 3 - Polish
 
 | Feature | Description | Status |
 |---------|-------------|--------|
-| **Navigation** | Header with links | Backlog |
-| **Footer** | Links, attribution | Backlog |
+| **Navigation** | Universal hamburger menu | ✅ |
+| **Footer** | Links, attribution (in sub-pages) | ✅ |
 | **Responsive design** | Mobile optimization | Backlog |
 | **Animations** | Fine-tune timing | Backlog |
 | **GitHub Pages** | Deployment | Backlog |
@@ -191,6 +204,32 @@ TESTING_EXT=D:\prod\testing_ext
 ---
 
 ## Session Notes
+
+### 2025-12-04 (Session 3 - Phase 2 Complete)
+
+**Task**: Complete all sub-pages and universal navigation
+
+**Implementation**:
+- Created SSC_SUB_PAGE base class with common header, footer, nav structure
+- Implemented all 11 sub-pages with content from blueprint
+- Added SSC_HAMBURGER_MENU for universal navigation
+  - `make` - always visible (sub-pages)
+  - `make_hidden_until_scroll` - appears on scroll (landing page)
+- Added YouTube video cards to workflow page
+- Fixed hallucinated citation URLs (Uplevel, Veracode, Devin, Apiiro)
+- Removed hallucinated Bertrand Meyer CACM 2025 reference
+- Added WIP notation to simple_gui_designer entries
+
+**Key Decisions**:
+- Hamburger menu hidden on landing page entry, appears on scroll (keeps hero clean)
+- Sub-pages always show hamburger menu
+- Used parallel arrays instead of tuple iteration (Eiffel limitation)
+- Custom scroll container detection for Alpine.js scroll events
+
+**Gotchas Discovered**:
+- Eiffel: Named tuple field access doesn't work in `across` loops
+- JavaScript: `window.scrollY` is always 0 with custom scroll containers
+- AI: Citation URLs can be hallucinated - always verify
 
 ### 2025-12-04 (Session 2 - Phase 1 Complete)
 

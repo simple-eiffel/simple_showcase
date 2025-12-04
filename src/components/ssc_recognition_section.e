@@ -78,7 +78,7 @@ feature {NONE} -- Content
 			l_cards.class_ ("grid md:grid-cols-2 gap-6").do_nothing
 
 			l_cards.raw_html (pain_card ("The dependency maze", "Every new library means a dozen transitive dependencies you didn't ask for.", 1))
-				.raw_html (pain_card ("The framework churn", "By the time you master one, the community has moved to the next.", 2))
+				.raw_html (pain_card ("The ecosystem fashion cycles", "The language is stable. The churn is market-driven fashion, not technical necessity.", 2))
 				.raw_html (pain_card ("The hiring scramble", "Finding developers who know your stack. Hoping they stay.", 3))
 				.raw_html (pain_card ("The debugging black box", "When it breaks at 3am, you're reading someone else's minified code.", 4))
 				.do_nothing

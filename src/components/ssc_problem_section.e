@@ -85,10 +85,10 @@ feature {NONE} -- Content
 			l_stats_grid := alpine.div
 			l_stats_grid.class_ ("grid md:grid-cols-2 lg:grid-cols-4 gap-6").do_nothing
 
-			l_stats_grid.raw_html (stat_card ("41%%", "more bugs with Copilot", "Uplevel 2024", 1))
-				.raw_html (stat_card ("45%%", "AI code has security flaws", "Veracode 2024", 2))
-				.raw_html (stat_card ("33%%", "developers trust AI code", "Stack Overflow 2025", 3))
-				.raw_html (stat_card ("85%%", "Devin AI tasks failed", "Independent audit", 4))
+			l_stats_grid.raw_html (stat_card ("41%%", "more bugs with Copilot", "Uplevel 2024", "https://uplevelteam.com/blog/ai-for-developer-productivity", 1))
+				.raw_html (stat_card ("45%%", "AI code has security flaws", "Veracode 2024", "https://www.veracode.com/blog/ai-generated-code-security-risks/", 2))
+				.raw_html (stat_card ("33%%", "developers trust AI code", "Stack Overflow 2024", "https://survey.stackoverflow.co/2024/ai", 3))
+				.raw_html (stat_card ("85%%", "Devin AI tasks failed", "Devin audit", "https://www.answer.ai/posts/2025-01-08-devin.html", 4))
 				.do_nothing
 
 			l_container.raw_html (l_stats_grid.to_html).do_nothing
@@ -96,12 +96,13 @@ feature {NONE} -- Content
 			Result.append (l_container.to_html)
 		end
 
-	stat_card (a_number, a_label, a_source: STRING; a_index: INTEGER): STRING
-			-- Generate a stat card HTML
+	stat_card (a_number, a_label, a_source, a_url: STRING; a_index: INTEGER): STRING
+			-- Generate a stat card HTML with linked source
 		require
 			number_not_empty: not a_number.is_empty
 			label_not_empty: not a_label.is_empty
 			source_not_empty: not a_source.is_empty
+			url_not_empty: not a_url.is_empty
 			index_positive: a_index > 0
 		local
 			l_card: ALPINE_DIV
@@ -110,7 +111,7 @@ feature {NONE} -- Content
 			l_card.class_ ("p-6 rounded-lg bg-white/10 text-center")
 				.raw_html ("<p class=%"text-5xl font-bold mb-2 stat-number%">" + a_number + "</p>")
 				.raw_html ("<p class=%"text-sm opacity-80 mb-1%">" + a_label + "</p>")
-				.raw_html ("<p class=%"text-xs opacity-50%">" + a_source + "</p>")
+				.raw_html ("<a href=%"" + a_url + "%" target=%"_blank%" class=%"text-xs text-blue-400 hover:underline%">" + a_source + " ↗</a>")
 				.do_nothing
 			Result := l_card.to_html
 		ensure

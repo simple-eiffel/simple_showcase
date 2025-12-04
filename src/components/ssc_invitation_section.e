@@ -83,15 +83,14 @@ feature {NONE} -- Content
 
 			l_container.raw_html (l_paths.to_html).do_nothing
 
-			-- Final tagline
+			-- Final tagline - the meta proof
 			l_content := alpine.div
-			l_content.class_ ("mt-16 text-center").do_nothing
+			l_content.class_ ("mt-16 pt-8 border-t border-white/10 text-center").do_nothing
 
-			l_subhead := alpine.p
-			l_subhead.class_ ("text-sm opacity-50")
-				.text ("This site was built with the same paradigm it describes.")
+			l_content.raw_html ("<p class=%"text-sm opacity-50 mb-2%">This site is built with the approach it describes.</p>")
+				.raw_html ("<p class=%"text-xs opacity-40 mb-3%">No frameworks. No bundlers. No node_modules. Just Eiffel + AI + Design by Contract.</p>")
+				.raw_html ("<p class=%"text-xs%"><a href=%"https://github.com/ljr1981/simple_showcase%" target=%"_blank%" class=%"text-blue-400 opacity-60 hover:opacity-100 hover:underline transition-opacity%">View the source on GitHub ↗</a></p>")
 				.do_nothing
-			l_content.raw_html (l_subhead.to_html).do_nothing
 
 			l_container.raw_html (l_content.to_html).do_nothing
 
