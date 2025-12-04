@@ -94,8 +94,8 @@ feature -- Generation
 
 			-- Hamburger button
 			Result.append ("  <button @click=%"menuOpen = !menuOpen%" ")
-			Result.append ("class=%"w-12 h-12 rounded-full bg-[" + color_primary_dark + "]/80 backdrop-blur-sm border border-white/10 ")
-			Result.append ("flex items-center justify-center hover:bg-white/10 transition-all%" ")
+			Result.append ("class=%"w-12 h-12 rounded-full bg-black/90 backdrop-blur-sm border border-white/30 ")
+			Result.append ("flex items-center justify-center hover:bg-white/20 hover:border-white/50 transition-all%" ")
 			Result.append ("aria-label=%"Navigation menu%">%N")
 			Result.append ("    <div class=%"flex flex-col gap-1.5%">%N")
 			Result.append ("      <span class=%"block w-5 h-0.5 bg-white/80 transition-all%" ")
