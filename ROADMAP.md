@@ -56,18 +56,24 @@ rm -rf EIFGENs && "/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/
 
 ### Current Status
 
-**Phase 1 In Progress** - Core structure built, landing page implemented
+**Phase 1 Complete** - Landing page fully functional with smooth scrolling and navigation
 
 Completed work:
 - ✅ Project structure created
 - ✅ ECF configuration with all targets
-- ✅ SSC_SHARED - Color palette, typography, animation constants
+- ✅ SSC_SHARED - Color palette, typography, animation constants + invariants
 - ✅ SSC_PAGE - Base page class with HTML structure
-- ✅ SSC_SECTION - Base section class with Alpine.js integration
-- ✅ All 8 landing page sections implemented
-- ✅ SSC_LANDING_PAGE - Main page assembling all sections
-- ✅ SITE_GENERATOR - Generates HTML files
-- ✅ Basic test suite (9 tests)
+- ✅ SSC_SECTION - Base section class with Alpine.js integration + contracts
+- ✅ All 9 landing page sections implemented (Hero + 8 content sections)
+- ✅ SSC_LANDING_PAGE - Main page assembling all sections + contracts
+- ✅ SSC_GLOSSARY - Tooltip system for DBC terminology
+- ✅ SSC_LOGGER - Aggressive debug logging for development
+- ✅ SSC_NAV_OVERLAY - Fixed nav with Home/Up/Down buttons + section dots
+- ✅ Smooth scroll-based fade transitions (JavaScript)
+- ✅ GitHub links on all Evidence section project cards
+- ✅ Third column in Workflow section (DBC/Eiffel as "the airplane")
+- ✅ Full contract review pass with preconditions/postconditions/invariants
+- ✅ Compiles clean with contracts enabled
 
 ---
 
@@ -137,7 +143,7 @@ TESTING_EXT=D:\prod\testing_ext
 
 ## Roadmap
 
-### Phase 1 - Landing Page ✅ IN PROGRESS
+### Phase 1 - Landing Page ✅ COMPLETE
 
 | Feature | Description | Status |
 |---------|-------------|--------|
@@ -149,13 +155,18 @@ TESTING_EXT=D:\prod\testing_ext
 | **Recognition section** | Pain points grid | ✅ |
 | **Shift section** | AI arrived narrative | ✅ |
 | **Problem section** | Research citations | ✅ |
-| **Unlock section** | DBC code example | ✅ |
-| **Evidence section** | Project portfolio grid | ✅ |
+| **Unlock section** | DBC code example + glossary tooltips | ✅ |
+| **Evidence section** | Project portfolio grid + GitHub links | ✅ |
 | **Revelation section** | Timeline | ✅ |
-| **Workflow section** | Human/AI comparison | ✅ |
+| **Workflow section** | Human/AI/DBC three-column comparison | ✅ |
 | **Invitation section** | Three CTA paths | ✅ |
-| **Test compilation** | Verify all compiles | Pending |
-| **Visual refinement** | Test in browser | Pending |
+| **SSC_GLOSSARY** | Tooltip system for technical terms | ✅ |
+| **SSC_LOGGER** | Debug logging infrastructure | ✅ |
+| **SSC_NAV_OVERLAY** | Fixed navigation (Home/Up/Down + dots) | ✅ |
+| **Smooth scrolling** | Scroll-based fade transitions | ✅ |
+| **Contract review** | Preconditions/postconditions/invariants | ✅ |
+| **Test compilation** | Verify all compiles with contracts | ✅ |
+| **Visual refinement** | Test in browser | ✅ |
 
 ### Phase 2 - Sub-Pages
 
@@ -180,6 +191,35 @@ TESTING_EXT=D:\prod\testing_ext
 ---
 
 ## Session Notes
+
+### 2025-12-04 (Session 2 - Phase 1 Complete)
+
+**Task**: Complete landing page with smooth scrolling, navigation, glossary tooltips, and contract review
+
+**Implementation**:
+- Added SSC_GLOSSARY for tooltip definitions of DBC terms
+- Added SSC_LOGGER with timestamped, categorized debug logging
+- Created SSC_NAV_OVERLAY with Home/Up/Down buttons and section indicator dots
+- Replaced jerky CSS scroll-snap with smooth scroll-based fade transitions
+- Added third column to Workflow section (DBC/Eiffel as "the airplane")
+- Added GitHub links to all 12 project cards in Evidence section
+- Added eiffel_sqlite_2025 project (bringing total to 12)
+- Full contract review pass on all classes with Design by Contract
+
+**Key Decisions**:
+- Removed all CSS scroll-snap for smooth, natural scrolling
+- JavaScript-based opacity/transform transitions for fade effect
+- Fixed nav overlay stays visible, tracks current section via scroll position
+- Glossary tooltips use hover-reveal for non-intrusive definitions
+
+**Contracts Added**:
+- SSC_SECTION: build_section, section_classes postconditions
+- SSC_NAV_OVERLAY: section_ids, to_html, nav_script contracts
+- SSC_GLOSSARY: tooltip preconditions/postconditions, tooltip_css
+- SSC_SHARED: invariants for color hex format, CDN URLs
+- SSC_LOGGER: preconditions on all log methods, format_time/padded contracts
+- SSC_LANDING_PAGE: make postconditions, to_html, body_content, html_* contracts
+- Section components: helper features (project_card, role_item, etc.) with contracts
 
 ### 2025-12-04 (Initial Creation)
 

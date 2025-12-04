@@ -13,6 +13,8 @@ inherit
 			background_color
 		end
 
+	SSC_GLOSSARY
+
 create
 	make
 
@@ -50,63 +52,53 @@ feature {NONE} -- Content
 
 			-- Main container
 			l_container := alpine.div
-			l_container.class_ (container_wide)
+			l_container.class_ (container_wide).do_nothing
 
 			-- Section label
 			l_label_wrap := alpine.div
-			l_label_wrap.class_ ("mb-8 opacity-0")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-500 delay-200")
-				.attr_raw ("x-transition:enter-start", "opacity-0")
-				.attr_raw ("x-transition:enter-end", "opacity-100")
+			l_label_wrap.class_ ("mb-8").do_nothing
 
 			l_label := alpine.span
 			l_label.class_ (font_section_label)
 				.text ("THE UNLOCK")
-			l_label_wrap.raw_html (l_label.to_html)
-			l_container.raw_html (l_label_wrap.to_html)
+				.do_nothing
+			l_label_wrap.raw_html (l_label.to_html).do_nothing
+			l_container.raw_html (l_label_wrap.to_html).do_nothing
 
 			-- Content
 			l_content := alpine.div
-			l_content.class_ ("grid lg:grid-cols-2 gap-12 items-center")
+			l_content.class_ ("grid lg:grid-cols-2 gap-12 items-center").do_nothing
 
 			-- Left: Text
 			l_label_wrap := alpine.div
-			l_label_wrap.class_ ("opacity-0")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-400")
-				.attr_raw ("x-transition:enter-start", "opacity-0 translate-x-[-20px]")
-				.attr_raw ("x-transition:enter-end", "opacity-100 translate-x-0")
 
 			l_headline := alpine.h2
 			l_headline.class_ (font_section_headline + " mb-6")
 				.text ("What if the code could verify itself?")
-			l_label_wrap.raw_html (l_headline.to_html)
+				.do_nothing
+			l_label_wrap.raw_html (l_headline.to_html).do_nothing
 
 			l_subhead := alpine.p
 			l_subhead.class_ (font_body + " opacity-90 mb-4")
-				.text ("Design by Contract embeds verification into every feature. The compiler becomes your QA department.")
-			l_label_wrap.raw_html (l_subhead.to_html)
+				.raw_html (term_design_by_contract + " embeds verification into every feature. The compiler becomes your QA department.")
+				.do_nothing
+			l_label_wrap.raw_html (l_subhead.to_html).do_nothing
 
 			l_explanation := alpine.p
 			l_explanation.class_ (font_body + " opacity-70")
-				.text ("Preconditions guard inputs. Postconditions verify outputs. Invariants maintain state. Every contract violation is caught immediately—not in production.")
-			l_label_wrap.raw_html (l_explanation.to_html)
+				.raw_html (term_preconditions + " guard inputs. " + term_postconditions + " verify outputs. " + term_invariants + " maintain state. Every " + term_contract_violation + " is caught immediately—not in production.")
+				.do_nothing
+			l_label_wrap.raw_html (l_explanation.to_html).do_nothing
 
-			l_content.raw_html (l_label_wrap.to_html)
+			l_content.raw_html (l_label_wrap.to_html).do_nothing
 
 			-- Right: Code example
 			l_code_block := alpine.div
-			l_code_block.class_ ("opacity-0")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-600")
-				.attr_raw ("x-transition:enter-start", "opacity-0 translate-x-[20px]")
-				.attr_raw ("x-transition:enter-end", "opacity-100 translate-x-0")
-				.raw_html (code_example)
+			l_code_block.raw_html (code_example).do_nothing
 
-			l_content.raw_html (l_code_block.to_html)
+			l_content.raw_html (l_code_block.to_html).do_nothing
 
-			l_container.raw_html (l_content.to_html)
+			l_container.raw_html (l_content.to_html).do_nothing
 
 			Result.append (l_container.to_html)
 		end
@@ -126,6 +118,11 @@ feature {NONE} -- Content
 			Result.append ("  <span class=%"text-blue-400%">end</span>")
 			Result.append ("</code></pre>")
 			Result.append ("<p class=%"text-sm opacity-60 mt-4 text-center%">The contract IS the specification. Violation = immediate feedback.</p>")
+		ensure
+			not_empty: not Result.is_empty
+			has_code_block: Result.has_substring ("<pre") and Result.has_substring ("</pre>")
+			has_require: Result.has_substring ("require")
+			has_ensure: Result.has_substring ("ensure")
 		end
 
 end

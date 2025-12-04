@@ -54,22 +54,14 @@ feature {NONE} -- Content
 
 			-- Line 1: "While others satisficed,"
 			l_line1 := alpine.p
-			l_line1.class_ (font_hero_headline + " opacity-0")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-300")
-				.attr_raw ("x-transition:enter-start", "opacity-0 translate-y-8")
-				.attr_raw ("x-transition:enter-end", "opacity-100 translate-y-0")
+			l_line1.class_ (font_hero_headline)
 				.text ("While others satisficed,")
 				.do_nothing
 			l_headline_wrap.raw_html (l_line1.to_html).do_nothing
 
 			-- Line 2: "we were building."
 			l_line2 := alpine.p
-			l_line2.class_ (font_hero_headline + " opacity-0 text-white/90")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-500")
-				.attr_raw ("x-transition:enter-start", "opacity-0 translate-y-8")
-				.attr_raw ("x-transition:enter-end", "opacity-100 translate-y-0")
+			l_line2.class_ (font_hero_headline + " text-white/90")
 				.text ("we were building.")
 				.do_nothing
 			l_headline_wrap.raw_html (l_line2.to_html).do_nothing
@@ -78,16 +70,11 @@ feature {NONE} -- Content
 
 			-- Subhead with stats
 			l_subhead := alpine.div
-			l_subhead.class_ ("space-y-4 opacity-0")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-1000")
-				.attr_raw ("x-transition:enter-start", "opacity-0 translate-y-8")
-				.attr_raw ("x-transition:enter-end", "opacity-100 translate-y-0")
-				.do_nothing
+			l_subhead.class_ ("space-y-4").do_nothing
 
 			l_stats := alpine.p
 			l_stats.class_ (font_body + " " + font_stats)
-				.raw_html ("<span class=%"text-2xl%">11</span> libraries. ")
+				.raw_html ("<span class=%"text-2xl%">12</span> libraries. ")
 				.raw_html ("<span class=%"text-2xl%">900+</span> tests. ")
 				.raw_html ("<span class=%"text-2xl%">10</span> days. ")
 				.raw_html ("<span class=%"text-2xl%">One</span> person.")
@@ -104,11 +91,7 @@ feature {NONE} -- Content
 
 			-- Scroll indicator
 			l_scroll_indicator := alpine.div
-			l_scroll_indicator.class_ ("absolute bottom-12 left-1/2 -translate-x-1/2 opacity-0 cursor-pointer")
-				.x_show ("visible")
-				.attr_raw ("x-transition:enter", "transition-all duration-700 delay-[1500ms]")
-				.attr_raw ("x-transition:enter-start", "opacity-0")
-				.attr_raw ("x-transition:enter-end", "opacity-60")
+			l_scroll_indicator.class_ ("absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer opacity-60")
 				.attr_raw ("@click", "document.getElementById('recognition').scrollIntoView({ behavior: 'smooth' })")
 				.do_nothing
 

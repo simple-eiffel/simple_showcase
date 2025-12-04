@@ -77,4 +77,20 @@ feature -- CDN URLs
 
 	lenis_cdn: STRING = "https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"
 
+invariant
+	-- Color palette is valid hex format
+	valid_primary_dark: color_primary_dark.starts_with ("#") and color_primary_dark.count = 7
+	valid_primary_light: color_primary_light.starts_with ("#") and color_primary_light.count = 7
+	valid_accent_calm: color_accent_calm.starts_with ("#") and color_accent_calm.count = 7
+	valid_accent_warning: color_accent_warning.starts_with ("#") and color_accent_warning.count = 7
+	valid_accent_energy: color_accent_energy.starts_with ("#") and color_accent_energy.count = 7
+	valid_accent_evidence: color_accent_evidence.starts_with ("#") and color_accent_evidence.count = 7
+	valid_code_bg: color_code_bg.starts_with ("#") and color_code_bg.count = 7
+	valid_code_text: color_code_text.starts_with ("#") and color_code_text.count = 7
+
+	-- CDN URLs are valid https
+	tailwind_https: tailwind_cdn.starts_with ("https://")
+	alpine_https: alpine_cdn.starts_with ("https://")
+	alpine_intersect_https: alpine_intersect_cdn.starts_with ("https://")
+
 end
