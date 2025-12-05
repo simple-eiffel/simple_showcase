@@ -104,23 +104,111 @@ feature {NONE} -- Content
 		end
 
 	code_example: STRING
-			-- Eiffel DBC code example
+			-- Interactive stepped Eiffel DBC demo
 		do
-			create Result.make (1000)
-			Result.append ("<pre class=%"p-6 rounded-lg bg-[" + color_code_bg + "] overflow-x-auto%"><code class=%"" + font_code + " text-[" + color_code_text + "]%">")
-			Result.append ("divide (a, b: REAL): REAL%N")
+			create Result.make (5000)
+
+			-- Alpine.js container with step state
+			Result.append ("<div x-data=%"{ step: 0, maxStep: 8 }%" class=%"space-y-4%">%N")
+
+			-- Code block with highlighted lines based on step
+			Result.append ("<pre class=%"p-6 rounded-lg bg-[" + color_code_bg + "] overflow-x-auto relative%"><code class=%"" + font_code + " text-[" + color_code_text + "]%">")
+
+			-- Line 1: Function signature
+			Result.append ("<span :class=%"step === 1 ? 'bg-white/20 -mx-2 px-2' : ''%">")
+			Result.append ("divide (a, b: REAL): REAL</span>%N")
+
+			-- Line 2-3: Precondition
+			Result.append ("<span :class=%"step === 2 ? 'bg-amber-400/20 -mx-2 px-2' : ''%">")
 			Result.append ("  <span class=%"text-amber-400%">require</span>%N")
-			Result.append ("    positive_divisor: b > 0%N")
+			Result.append ("    positive_divisor: b > 0</span>%N")
+
+			-- Line 4-5: Do block
+			Result.append ("<span :class=%"step === 3 ? 'bg-blue-400/20 -mx-2 px-2' : ''%">")
 			Result.append ("  <span class=%"text-blue-400%">do</span>%N")
-			Result.append ("    Result := a / b%N")
+			Result.append ("    Result := a / b</span>%N")
+
+			-- Line 6-7: Postcondition
+			Result.append ("<span :class=%"step === 4 ? 'bg-emerald-400/20 -mx-2 px-2' : ''%">")
 			Result.append ("  <span class=%"text-emerald-400%">ensure</span>%N")
-			Result.append ("    correct_result: Result * b = a%N")
+			Result.append ("    correct_result: Result * b = a</span>%N")
+
+			-- Line 8: End
 			Result.append ("  <span class=%"text-blue-400%">end</span>")
-			Result.append ("</code></pre>")
-			Result.append ("<p class=%"text-sm opacity-60 mt-4 text-center%">The contract IS the specification. Violation = immediate feedback.</p>")
+			Result.append ("</code></pre>%N")
+
+			-- Execution simulation area (shows on steps 5-8)
+			Result.append ("<div x-show=%"step >= 5%" x-transition class=%"p-4 rounded-lg bg-black/30 font-mono text-sm%">%N")
+
+			-- Step 5: Valid call
+			Result.append ("<div x-show=%"step === 5%" class=%"text-blue-300%">")
+			Result.append ("<span class=%"opacity-60%">Call:</span> divide(10, 2)")
+			Result.append ("</div>%N")
+
+			-- Step 6: Precondition check passes
+			Result.append ("<div x-show=%"step === 6%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> divide(10, 2)</div>")
+			Result.append ("<div class=%"text-amber-400%"><span class=%"opacity-60%">Check:</span> b > 0 → 2 > 0 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("</div>%N")
+
+			-- Step 7: Result with postcondition
+			Result.append ("<div x-show=%"step === 7%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> divide(10, 2)</div>")
+			Result.append ("<div class=%"text-amber-400%"><span class=%"opacity-60%">Check:</span> b > 0 → 2 > 0 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("<div class=%"text-white%"><span class=%"opacity-60%">Result:</span> 5.0</div>")
+			Result.append ("<div class=%"text-emerald-400%"><span class=%"opacity-60%">Verify:</span> 5 × 2 = 10 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("</div>%N")
+
+			-- Step 8: Invalid call - contract violation
+			Result.append ("<div x-show=%"step === 8%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> divide(10, <span class=%"text-red-400%">0</span>)</div>")
+			Result.append ("<div class=%"text-red-400 font-bold animate-pulse%">")
+			Result.append ("⚠ PRECONDITION VIOLATION: positive_divisor%N")
+			Result.append ("<span class=%"text-sm font-normal opacity-80%">Caught immediately — not at 3am in production!</span>")
+			Result.append ("</div>")
+			Result.append ("</div>%N")
+
+			Result.append ("</div>%N")
+
+			-- Explainer text area
+			Result.append ("<div class=%"h-16 flex items-center justify-center%">%N")
+			Result.append ("<p x-show=%"step === 0%" class=%"text-center text-sm opacity-70%">Click <span class=%"font-bold%">Step</span> to walk through Design by Contract</p>%N")
+			Result.append ("<p x-show=%"step === 1%" x-transition class=%"text-center text-sm%">A simple division function with two inputs</p>%N")
+			Result.append ("<p x-show=%"step === 2%" x-transition class=%"text-center text-sm text-amber-400%">The <strong>precondition</strong>: caller promises b will be positive</p>%N")
+			Result.append ("<p x-show=%"step === 3%" x-transition class=%"text-center text-sm text-blue-400%">The actual work — just one line of code</p>%N")
+			Result.append ("<p x-show=%"step === 4%" x-transition class=%"text-center text-sm text-emerald-400%">The <strong>postcondition</strong>: function guarantees correct math</p>%N")
+			Result.append ("<p x-show=%"step === 5%" x-transition class=%"text-center text-sm%">Let's call it with valid input...</p>%N")
+			Result.append ("<p x-show=%"step === 6%" x-transition class=%"text-center text-sm text-amber-400%">Precondition checked first — b=2 satisfies b > 0</p>%N")
+			Result.append ("<p x-show=%"step === 7%" x-transition class=%"text-center text-sm text-emerald-400%">Postcondition verified — the math is correct!</p>%N")
+			Result.append ("<p x-show=%"step === 8%" x-transition class=%"text-center text-sm text-red-400%">Invalid input? Contract catches it <strong>immediately</strong>.</p>%N")
+			Result.append ("</div>%N")
+
+			-- Navigation buttons
+			Result.append ("<div class=%"flex items-center justify-center gap-4%">%N")
+			Result.append ("<button @click=%"step = Math.max(0, step - 1)%" ")
+			Result.append (":disabled=%"step === 0%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all%">")
+			Result.append ("← Back</button>%N")
+
+			Result.append ("<span class=%"text-sm opacity-60%" x-text=%"step + '/' + maxStep%"></span>%N")
+
+			Result.append ("<button @click=%"step = Math.min(maxStep, step + 1)%" ")
+			Result.append (":disabled=%"step === maxStep%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all%">")
+			Result.append ("<span x-show=%"step === 0%">Step</span>")
+			Result.append ("<span x-show=%"step > 0 && step < maxStep%">Next →</span>")
+			Result.append ("<span x-show=%"step === maxStep%">Done ✓</span>")
+			Result.append ("</button>%N")
+
+			Result.append ("<button x-show=%"step > 0%" @click=%"step = 0%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm opacity-60 transition-all%">")
+			Result.append ("Reset</button>%N")
+
+			Result.append ("</div>%N")
+			Result.append ("</div>%N")
 		ensure
 			not_empty: not Result.is_empty
-			has_code_block: Result.has_substring ("<pre") and Result.has_substring ("</pre>")
+			has_alpine: Result.has_substring ("x-data")
 			has_require: Result.has_substring ("require")
 			has_ensure: Result.has_substring ("ensure")
 		end
