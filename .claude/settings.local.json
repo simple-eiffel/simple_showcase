@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./curl.exe:*)",
+      "Bash(cat:*)",
+      "Bash(powershell -Command \"\n$body = @''\nFrom: rix.larry@gmail.com\nTo: rix.larry@gmail.com\nSubject: Test Email from CLI\n\nThis is a test.\n''@\necho $body\n\")",
+      "Bash(powershell -Command \"\n$body = @''\nFrom: rix.larry@gmail.com\nTo: rix.larry@gmail.com\nSubject: CLI Test from Claude\n\nTest message body.\n''@\necho ''Email body:''\necho $body\necho ''---''\necho ''Running curl with verbose...''\n$body | & ''./curl.exe'' --verbose --url ''smtp://smtp.gmail.com:587'' --ssl-reqd --mail-from ''rix.larry@gmail.com'' --mail-rcpt ''rix.larry@gmail.com'' --user ''rix.larry@gmail.com:%SSC_SMTP_PASSWORD%'' -T - 2>&1\necho ''---''\necho ''Exit code:'' $LASTEXITCODE\n\")",
+      "Bash(powershell -ExecutionPolicy Bypass -File test_email.ps1)",
+      "Bash(powershell -Command \"\nWrite-Host ''Testing SMTP connection with current env var...''\nWrite-Host ''Password length:'' $env:SSC_SMTP_PASSWORD.Length\n$body = @''\nFrom: rix.larry@gmail.com\nTo: rix.larry@gmail.com\nSubject: Test from Claude\n\nTest message.\n''@\n$result = $body | & ''./curl.exe'' --verbose --url ''smtps://smtp.gmail.com:465'' --mail-from ''rix.larry@gmail.com'' --mail-rcpt ''rix.larry@gmail.com'' --user \"\"rix.larry@gmail.com:$env:SSC_SMTP_PASSWORD\"\" -T - 2>&1\nWrite-Host $result\nWrite-Host ''Exit code:'' $LASTEXITCODE\n\")",
+      "Bash(powershell -Command \"[System.Environment]::GetEnvironmentVariable(''SSC_SMTP_PASSWORD'', ''User'')\")",
+      "Bash(\"/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/studio/spec/win64/bin/ec.exe\" -batch -config simple_showcase.ecf -target run_server -c_compile)",
+      "Bash(tasklist:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)",
+      "Bash(\"/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/studio/spec/win64/bin/ec.exe\" -batch -config simple_showcase.ecf -target generate_site -c_compile)",
+      "Bash(./EIFGENs/generate_site/W_code/simple_showcase.exe)",
+      "WebFetch(domain:uplevelteam.com)",
+      "Bash(powershell -Command:*)",
+      "Bash(ls:*)",
+      "WebFetch(domain:01557628902333923607.googlegroups.com)",
+      "Bash(\"/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/studio/spec/win64/bin/ec.exe\" -batch -config D:/prod/simple_showcase/simple_showcase.ecf -target generate_site -c_compile)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
