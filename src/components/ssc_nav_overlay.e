@@ -74,11 +74,13 @@ feature -- Generation
 			Result.append ("    <span class=%"text-lg%">&#8595;</span>%N")
 			Result.append ("  </button>%N")
 
-			-- Section indicator dots
-			Result.append ("  <div class=%"flex flex-col gap-1 mt-2%">%N")
+			-- Section indicator dots (clickable)
+			Result.append ("  <div class=%"flex flex-col gap-1.5 mt-2%">%N")
 			across 0 |..| (section_ids.count - 1) as idx loop
-				Result.append ("    <div class=%"w-2 h-2 rounded-full transition-all%" ")
-				Result.append (":class=%"currentSection === " + idx.item.out + " ? 'bg-white/80 scale-125' : 'bg-white/30'%"></div>%N")
+				Result.append ("    <button @click=%"goToSection(" + idx.item.out + ")%" ")
+				Result.append ("class=%"w-2 h-2 rounded-full transition-all cursor-pointer hover:scale-150%" ")
+				Result.append (":class=%"currentSection === " + idx.item.out + " ? 'bg-white scale-125' : 'bg-white/50'%" ")
+				Result.append ("title=%"" + section_ids[idx.item + 1] + "%"></button>%N")
 			end
 			Result.append ("  </div>%N")
 
@@ -127,6 +129,9 @@ feature -- JavaScript
 			Result.append ("      if (this.currentSection < this.sections.length - 1) {%N")
 			Result.append ("        document.getElementById(this.sections[this.currentSection + 1]).scrollIntoView({ behavior: 'smooth' });%N")
 			Result.append ("      }%N")
+			Result.append ("    },%N")
+			Result.append ("    goToSection(index) {%N")
+			Result.append ("      document.getElementById(this.sections[index]).scrollIntoView({ behavior: 'smooth' });%N")
 			Result.append ("    }%N")
 			Result.append ("  }));%N")
 		ensure
