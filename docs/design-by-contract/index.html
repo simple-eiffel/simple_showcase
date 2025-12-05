@@ -124,30 +124,60 @@
 <div class="section-divider"></div>
 <h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">A Real Example</h2>
 <p class="mb-4 opacity-90 leading-relaxed">Let's build a bank account:</p>
-<div class="code-block mb-6"><code><pre>class BANK_ACCOUNT
+<div class="code-block mb-6"><code><pre><div x-data="{ step: 0, maxStep: 10 }" class="space-y-4">
+<pre class="p-4 rounded-lg bg-[#1a1a1a] overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed"><code><span :class="step === 1 ? 'bg-white/20' : ''">class BANK_ACCOUNT</span>
 
-feature -- Access
+<span :class="step === 2 ? 'bg-blue-400/20' : ''">feature -- Access
 
     balance: DECIMAL
-        -- Current account balance
+        -- Current account balance</span>
 
 feature -- Operations
 
     withdraw (amount: DECIMAL)
         -- Withdraw amount from account
-        <span class="text-amber-400">require</span>
+<span :class="step === 3 ? 'bg-amber-400/20' : ''">        <span class="text-amber-400">require</span>
             positive_amount: amount > 0
-            sufficient_funds: amount <= balance
-        <span class="text-blue-400">do</span>
-            balance := balance - amount
-        <span class="text-emerald-400">ensure</span>
-            balance_reduced: balance = old balance - amount
+            sufficient_funds: amount <= balance</span>
+<span :class="step === 4 ? 'bg-blue-400/20' : ''">        <span class="text-blue-400">do</span>
+            balance := balance - amount</span>
+<span :class="step === 5 ? 'bg-emerald-400/20' : ''">        <span class="text-emerald-400">ensure</span>
+            balance_reduced: balance = old balance - amount</span>
         <span class="text-blue-400">end</span>
 
-<span class="text-purple-400">invariant</span>
-    non_negative_balance: balance >= 0
+<span :class="step === 6 ? 'bg-purple-400/20' : ''"><span class="text-purple-400">invariant</span>
+    non_negative_balance: balance >= 0</span>
 
-end</pre></code></div>
+end</code></pre>
+<div x-show="step >= 7" x-transition class="p-4 rounded-lg bg-black/30 font-mono text-sm">
+<div x-show="step === 7" class="text-blue-300"><span class="opacity-60">Create:</span> account.balance := 100.00</div>
+<div x-show="step === 8"><div class="text-blue-300"><span class="opacity-60">Call:</span> account.withdraw(30.00)</div><div class="text-amber-400"><span class="opacity-60">Check:</span> amount > 0 → 30 > 0 <span class="text-emerald-400">✓</span></div><div class="text-amber-400"><span class="opacity-60">Check:</span> amount <= balance → 30 <= 100 <span class="text-emerald-400">✓</span></div><div class="text-white"><span class="opacity-60">Execute:</span> balance := 100 - 30</div><div class="text-emerald-400"><span class="opacity-60">Verify:</span> balance = old balance - amount → 70 = 100 - 30 <span class="text-emerald-400">✓</span></div><div class="text-purple-400"><span class="opacity-60">Invariant:</span> balance >= 0 → 70 >= 0 <span class="text-emerald-400">✓</span></div></div>
+<div x-show="step === 9"><div class="text-blue-300"><span class="opacity-60">Call:</span> account.withdraw(<span class="text-red-400">100.00</span>)</div><div class="text-amber-400"><span class="opacity-60">Check:</span> amount > 0 → 100 > 0 <span class="text-emerald-400">✓</span></div><div class="text-red-400 font-bold animate-pulse">⚠ PRECONDITION VIOLATION: sufficient_funds
+<span class="text-sm font-normal opacity-80">100 > 70 (current balance) — overdraft prevented!</span></div></div>
+<div x-show="step === 10"><div class="text-blue-300"><span class="opacity-60">Call:</span> account.withdraw(<span class="text-red-400">-50.00</span>)</div><div class="text-red-400 font-bold animate-pulse">⚠ PRECONDITION VIOLATION: positive_amount
+<span class="text-sm font-normal opacity-80">-50 is not > 0 — deposit disguised as withdrawal blocked!</span></div></div>
+</div>
+<div class="h-16 flex items-center justify-center">
+<p x-show="step === 0" class="text-center text-sm opacity-70">Click <span class="font-bold">Step</span> to explore the bank account contracts</p>
+<p x-show="step === 1" x-transition class="text-center text-sm">A simple bank account class</p>
+<p x-show="step === 2" x-transition class="text-center text-sm text-blue-400">The <strong>balance</strong> attribute stores current funds</p>
+<p x-show="step === 3" x-transition class="text-center text-sm text-amber-400"><strong>Preconditions:</strong> amount must be positive AND within available balance</p>
+<p x-show="step === 4" x-transition class="text-center text-sm text-blue-400">The actual work — subtract amount from balance</p>
+<p x-show="step === 5" x-transition class="text-center text-sm text-emerald-400"><strong>Postcondition:</strong> balance is exactly reduced by the amount</p>
+<p x-show="step === 6" x-transition class="text-center text-sm text-purple-400"><strong>Invariant:</strong> balance can NEVER go negative — checked after every call</p>
+<p x-show="step === 7" x-transition class="text-center text-sm">Let's create an account with $100...</p>
+<p x-show="step === 8" x-transition class="text-center text-sm text-emerald-400">Valid withdrawal: all contracts satisfied!</p>
+<p x-show="step === 9" x-transition class="text-center text-sm text-red-400">Overdraft attempt? <strong>Blocked by precondition!</strong></p>
+<p x-show="step === 10" x-transition class="text-center text-sm text-red-400">Sneaky negative withdrawal? <strong>Also blocked!</strong></p>
+</div>
+<div class="flex items-center justify-center gap-4">
+<button @click="step = Math.max(0, step - 1)" :disabled="step === 0" class="px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all">← Back</button>
+<span class="text-sm opacity-60" x-text="step + '/' + maxStep"></span>
+<button @click="step = Math.min(maxStep, step + 1)" :disabled="step === maxStep" class="px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all"><span x-show="step === 0">Step</span><span x-show="step > 0 && step < maxStep">Next →</span><span x-show="step === maxStep">Done ✓</span></button>
+<button x-show="step > 0" @click="step = 0" class="px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm opacity-60 transition-all">Reset</button>
+</div>
+</div>
+</pre></code></div>
 <p class="mb-4 opacity-90 leading-relaxed">What this guarantees:</p>
 <ul class="list-disc list-inside space-y-2 mb-6 opacity-90">
   <li>You can't withdraw zero or negative amounts</li>

@@ -156,27 +156,131 @@ feature {NONE} -- Related Pages
 feature {NONE} -- Content Helpers
 
 	bank_account_example: STRING
-			-- Bank account DBC example
+			-- Interactive bank account DBC demo
 		do
-			create Result.make (800)
-			Result.append ("class BANK_ACCOUNT%N%N")
-			Result.append ("feature -- Access%N%N")
+			create Result.make (6000)
+
+			-- Alpine.js container with step state
+			Result.append ("<div x-data=%"{ step: 0, maxStep: 10 }%" class=%"space-y-4%">%N")
+
+			-- Code block with highlighted sections
+			Result.append ("<pre class=%"p-4 rounded-lg bg-[#1a1a1a] overflow-x-auto text-xs sm:text-sm font-mono leading-relaxed%"><code>")
+
+			-- Class header
+			Result.append ("<span :class=%"step === 1 ? 'bg-white/20' : ''%">class BANK_ACCOUNT</span>%N%N")
+
+			-- Balance attribute
+			Result.append ("<span :class=%"step === 2 ? 'bg-blue-400/20' : ''%">feature -- Access%N%N")
 			Result.append ("    balance: DECIMAL%N")
-			Result.append ("        -- Current account balance%N%N")
+			Result.append ("        -- Current account balance</span>%N%N")
+
+			-- Feature header
 			Result.append ("feature -- Operations%N%N")
 			Result.append ("    withdraw (amount: DECIMAL)%N")
 			Result.append ("        -- Withdraw amount from account%N")
+
+			-- Preconditions
+			Result.append ("<span :class=%"step === 3 ? 'bg-amber-400/20' : ''%">")
 			Result.append ("        <span class=%"text-amber-400%">require</span>%N")
 			Result.append ("            positive_amount: amount > 0%N")
-			Result.append ("            sufficient_funds: amount <= balance%N")
+			Result.append ("            sufficient_funds: amount <= balance</span>%N")
+
+			-- Do block
+			Result.append ("<span :class=%"step === 4 ? 'bg-blue-400/20' : ''%">")
 			Result.append ("        <span class=%"text-blue-400%">do</span>%N")
-			Result.append ("            balance := balance - amount%N")
+			Result.append ("            balance := balance - amount</span>%N")
+
+			-- Postconditions
+			Result.append ("<span :class=%"step === 5 ? 'bg-emerald-400/20' : ''%">")
 			Result.append ("        <span class=%"text-emerald-400%">ensure</span>%N")
-			Result.append ("            balance_reduced: balance = old balance - amount%N")
+			Result.append ("            balance_reduced: balance = old balance - amount</span>%N")
 			Result.append ("        <span class=%"text-blue-400%">end</span>%N%N")
+
+			-- Invariant
+			Result.append ("<span :class=%"step === 6 ? 'bg-purple-400/20' : ''%">")
 			Result.append ("<span class=%"text-purple-400%">invariant</span>%N")
-			Result.append ("    non_negative_balance: balance >= 0%N%N")
+			Result.append ("    non_negative_balance: balance >= 0</span>%N%N")
+
 			Result.append ("end")
+			Result.append ("</code></pre>%N")
+
+			-- Execution simulation area (shows on steps 7-10)
+			Result.append ("<div x-show=%"step >= 7%" x-transition class=%"p-4 rounded-lg bg-black/30 font-mono text-sm%">%N")
+
+			-- Step 7: Create account
+			Result.append ("<div x-show=%"step === 7%" class=%"text-blue-300%">")
+			Result.append ("<span class=%"opacity-60%">Create:</span> account.balance := 100.00")
+			Result.append ("</div>%N")
+
+			-- Step 8: Valid withdrawal
+			Result.append ("<div x-show=%"step === 8%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> account.withdraw(30.00)</div>")
+			Result.append ("<div class=%"text-amber-400%"><span class=%"opacity-60%">Check:</span> amount > 0 → 30 > 0 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("<div class=%"text-amber-400%"><span class=%"opacity-60%">Check:</span> amount <= balance → 30 <= 100 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("<div class=%"text-white%"><span class=%"opacity-60%">Execute:</span> balance := 100 - 30</div>")
+			Result.append ("<div class=%"text-emerald-400%"><span class=%"opacity-60%">Verify:</span> balance = old balance - amount → 70 = 100 - 30 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("<div class=%"text-purple-400%"><span class=%"opacity-60%">Invariant:</span> balance >= 0 → 70 >= 0 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("</div>%N")
+
+			-- Step 9: Overdraft attempt
+			Result.append ("<div x-show=%"step === 9%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> account.withdraw(<span class=%"text-red-400%">100.00</span>)</div>")
+			Result.append ("<div class=%"text-amber-400%"><span class=%"opacity-60%">Check:</span> amount > 0 → 100 > 0 <span class=%"text-emerald-400%">✓</span></div>")
+			Result.append ("<div class=%"text-red-400 font-bold animate-pulse%">")
+			Result.append ("⚠ PRECONDITION VIOLATION: sufficient_funds%N")
+			Result.append ("<span class=%"text-sm font-normal opacity-80%">100 > 70 (current balance) — overdraft prevented!</span>")
+			Result.append ("</div>")
+			Result.append ("</div>%N")
+
+			-- Step 10: Negative amount attempt
+			Result.append ("<div x-show=%"step === 10%">")
+			Result.append ("<div class=%"text-blue-300%"><span class=%"opacity-60%">Call:</span> account.withdraw(<span class=%"text-red-400%">-50.00</span>)</div>")
+			Result.append ("<div class=%"text-red-400 font-bold animate-pulse%">")
+			Result.append ("⚠ PRECONDITION VIOLATION: positive_amount%N")
+			Result.append ("<span class=%"text-sm font-normal opacity-80%">-50 is not > 0 — deposit disguised as withdrawal blocked!</span>")
+			Result.append ("</div>")
+			Result.append ("</div>%N")
+
+			Result.append ("</div>%N")
+
+			-- Explainer text area
+			Result.append ("<div class=%"h-16 flex items-center justify-center%">%N")
+			Result.append ("<p x-show=%"step === 0%" class=%"text-center text-sm opacity-70%">Click <span class=%"font-bold%">Step</span> to explore the bank account contracts</p>%N")
+			Result.append ("<p x-show=%"step === 1%" x-transition class=%"text-center text-sm%">A simple bank account class</p>%N")
+			Result.append ("<p x-show=%"step === 2%" x-transition class=%"text-center text-sm text-blue-400%">The <strong>balance</strong> attribute stores current funds</p>%N")
+			Result.append ("<p x-show=%"step === 3%" x-transition class=%"text-center text-sm text-amber-400%"><strong>Preconditions:</strong> amount must be positive AND within available balance</p>%N")
+			Result.append ("<p x-show=%"step === 4%" x-transition class=%"text-center text-sm text-blue-400%">The actual work — subtract amount from balance</p>%N")
+			Result.append ("<p x-show=%"step === 5%" x-transition class=%"text-center text-sm text-emerald-400%"><strong>Postcondition:</strong> balance is exactly reduced by the amount</p>%N")
+			Result.append ("<p x-show=%"step === 6%" x-transition class=%"text-center text-sm text-purple-400%"><strong>Invariant:</strong> balance can NEVER go negative — checked after every call</p>%N")
+			Result.append ("<p x-show=%"step === 7%" x-transition class=%"text-center text-sm%">Let's create an account with $100...</p>%N")
+			Result.append ("<p x-show=%"step === 8%" x-transition class=%"text-center text-sm text-emerald-400%">Valid withdrawal: all contracts satisfied!</p>%N")
+			Result.append ("<p x-show=%"step === 9%" x-transition class=%"text-center text-sm text-red-400%">Overdraft attempt? <strong>Blocked by precondition!</strong></p>%N")
+			Result.append ("<p x-show=%"step === 10%" x-transition class=%"text-center text-sm text-red-400%">Sneaky negative withdrawal? <strong>Also blocked!</strong></p>%N")
+			Result.append ("</div>%N")
+
+			-- Navigation buttons
+			Result.append ("<div class=%"flex items-center justify-center gap-4%">%N")
+			Result.append ("<button @click=%"step = Math.max(0, step - 1)%" ")
+			Result.append (":disabled=%"step === 0%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all%">")
+			Result.append ("← Back</button>%N")
+
+			Result.append ("<span class=%"text-sm opacity-60%" x-text=%"step + '/' + maxStep%"></span>%N")
+
+			Result.append ("<button @click=%"step = Math.min(maxStep, step + 1)%" ")
+			Result.append (":disabled=%"step === maxStep%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/10 hover:bg-white/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all%">")
+			Result.append ("<span x-show=%"step === 0%">Step</span>")
+			Result.append ("<span x-show=%"step > 0 && step < maxStep%">Next →</span>")
+			Result.append ("<span x-show=%"step === maxStep%">Done ✓</span>")
+			Result.append ("</button>%N")
+
+			Result.append ("<button x-show=%"step > 0%" @click=%"step = 0%" ")
+			Result.append ("class=%"px-4 py-2 rounded bg-white/5 hover:bg-white/10 text-sm opacity-60 transition-all%">")
+			Result.append ("Reset</button>%N")
+
+			Result.append ("</div>%N")
+			Result.append ("</div>%N")
 		end
 
 	contract_type_box (a_title, a_keyword, a_description, a_quote: STRING): STRING
