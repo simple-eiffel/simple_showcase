@@ -19,7 +19,15 @@
       "Bash(powershell -Command:*)",
       "Bash(ls:*)",
       "WebFetch(domain:01557628902333923607.googlegroups.com)",
-      "Bash(\"/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/studio/spec/win64/bin/ec.exe\" -batch -config D:/prod/simple_showcase/simple_showcase.ecf -target generate_site -c_compile)"
+      "Bash(\"/c/Program Files/Eiffel Software/EiffelStudio 25.02 Standard/studio/spec/win64/bin/ec.exe\" -batch -config D:/prod/simple_showcase/simple_showcase.ecf -target generate_site -c_compile)",
+      "WebFetch(domain:ljr1981.github.io)",
+      "WebFetch(domain:www.veracode.com)",
+      "WebFetch(domain:survey.stackoverflow.co)",
+      "WebFetch(domain:www.answer.ai)",
+      "WebFetch(domain:apiiro.com)",
+      "WebFetch(domain:www.eiffel.org)",
+      "WebFetch(domain:youtu.be)",
+      "WebFetch(domain:github.com)"
     ],
     "deny": [],
     "ask": []
