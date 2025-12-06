@@ -18,3 +18,4 @@ config.production.json
 # Local deployment notes (contains IPs, credentials info)
 *.local.txt
 DEPLOYMENT_NOTES.local.txt
+*.rc
