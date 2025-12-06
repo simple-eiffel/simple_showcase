@@ -16,7 +16,7 @@
 
 SIMPLE_SHOWCASE is a web application built entirely in Eiffel that demonstrates the AI+DBC (Design by Contract) development paradigm. The site itself serves as proof of concept - built using the same methodology it describes.
 
-**Key Message**: 12 libraries, 900+ tests, 10 days, one person - AI-assisted, contract-verified development.
+**Key Message**: 25 libraries + 4 apps, 1,200+ tests, 13 days, one person - AI-assisted, contract-verified development. Christmas Sprint: 14 libraries in 2 days.
 
 **Developed using AI-assisted methodology:** Built interactively with Claude following rigorous Design by Contract principles.
 
