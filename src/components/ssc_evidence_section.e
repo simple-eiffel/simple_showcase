@@ -75,29 +75,74 @@ feature {NONE} -- Content
 
 			l_subhead := alpine.p
 			l_subhead.class_ (font_body + " opacity-80")
-				.text ("12 production libraries built in 10 calendar days. Every one contract-verified.")
+				.text ("25 libraries + 4 apps built in 13 days. The Christmas Sprint: 14 libraries in 2 days.")
 				.do_nothing
 			l_header.raw_html (l_subhead.to_html).do_nothing
 
 			l_container.raw_html (l_header.to_html).do_nothing
 
-			-- Project grid
+			-- Layer labels
+			l_container.raw_html ("<p class=%"text-xs uppercase tracking-widest opacity-50 mb-4%">Foundation Layer</p>").do_nothing
+
+			-- Foundation grid
 			l_grid := alpine.div
-			l_grid.class_ ("grid md:grid-cols-2 lg:grid-cols-3 gap-4").do_nothing
+			l_grid.class_ ("grid md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8").do_nothing
 
-			l_grid.raw_html (project_card ("simple_json", "11,400", "215", "Zero-friction JSON parsing", 1))
-				.raw_html (project_card ("simple_sql", "17,200", "339", "SQLite with contract safety", 2))
-				.raw_html (project_card ("simple_web", "8,000", "95", "HTTP client + server", 3))
-				.raw_html (project_card ("simple_htmx", "4,200", "40", "Fluent HTML/HTMX builder", 4))
-				.raw_html (project_card ("simple_alpine", "3,200", "103", "Alpine.js directives", 5))
-				.raw_html (project_card ("simple_ci", "1,600", "", "Homebrew CI tool", 6))
-				.raw_html (project_card ("simple_gui_designer", "7,000", "10", "Visual GUI spec designer (WIP)", 7))
-				.raw_html (project_card ("simple_process", "500", "4", "Process execution helper", 8))
+			l_grid.raw_html (project_card ("simple_json", "11,400", "215", "JSON parsing/serialization", 1))
+				.raw_html (project_card ("simple_base64", "", "", "RFC 4648 Base64 encoding", 2))
+				.raw_html (project_card ("simple_hash", "", "", "MD5, SHA-1/256/512", 3))
+				.raw_html (project_card ("simple_uuid", "", "", "UUID v4 generation", 4))
+				.raw_html (project_card ("simple_csv", "", "", "CSV parsing/generation", 5))
+				.raw_html (project_card ("simple_markdown", "", "", "Markdown to HTML", 6))
+				.raw_html (project_card ("simple_validation", "", "", "Input validation rules", 7))
+				.raw_html (project_card ("simple_process", "500", "4", "Process execution", 8))
 				.raw_html (project_card ("simple_randomizer", "1,100", "27", "Random data generation", 9))
-				.raw_html (project_card ("simple_ai_client", "", "", "AI API integration", 10))
-				.raw_html (project_card ("eiffel_sqlite_2025", "25,000", "200", "Modern SQLite3 (FTS5, JSON1)", 11))
 				.do_nothing
+			l_container.raw_html (l_grid.to_html).do_nothing
 
+			-- Service layer label
+			l_container.raw_html ("<p class=%"text-xs uppercase tracking-widest opacity-50 mb-4%">Service Layer</p>").do_nothing
+
+			-- Service grid
+			l_grid := alpine.div
+			l_grid.class_ ("grid md:grid-cols-3 lg:grid-cols-4 gap-3 mb-8").do_nothing
+
+			l_grid.raw_html (project_card ("simple_sql", "17,200", "339", "SQLite query building", 1))
+				.raw_html (project_card ("simple_jwt", "", "", "JWT token handling", 2))
+				.raw_html (project_card ("simple_smtp", "", "", "Email sending", 3))
+				.raw_html (project_card ("simple_cors", "", "", "CORS header handling", 4))
+				.raw_html (project_card ("simple_rate_limiter", "", "", "Request rate limiting", 5))
+				.raw_html (project_card ("simple_template", "", "", "Template rendering", 6))
+				.raw_html (project_card ("simple_websocket", "", "", "WebSocket protocol", 7))
+				.raw_html (project_card ("simple_cache", "", "", "LRU cache with TTL", 8))
+				.raw_html (project_card ("simple_logger", "", "", "Structured JSON logging", 9))
+				.do_nothing
+			l_container.raw_html (l_grid.to_html).do_nothing
+
+			-- Web layer label
+			l_container.raw_html ("<p class=%"text-xs uppercase tracking-widest opacity-50 mb-4%">Web Layer</p>").do_nothing
+
+			-- Web grid
+			l_grid := alpine.div
+			l_grid.class_ ("grid md:grid-cols-3 gap-3 mb-8").do_nothing
+
+			l_grid.raw_html (project_card ("simple_web", "8,000", "95", "HTTP client + server", 1))
+				.raw_html (project_card ("simple_htmx", "4,200", "40", "Fluent HTML/HTMX builder", 2))
+				.raw_html (project_card ("simple_alpine", "3,200", "103", "Alpine.js directives", 3))
+				.do_nothing
+			l_container.raw_html (l_grid.to_html).do_nothing
+
+			-- API Facades label
+			l_container.raw_html ("<p class=%"text-xs uppercase tracking-widest opacity-50 mb-4%">API Facades</p>").do_nothing
+
+			-- Facades grid
+			l_grid := alpine.div
+			l_grid.class_ ("grid md:grid-cols-3 gap-3 mb-8").do_nothing
+
+			l_grid.raw_html (project_card ("simple_foundation_api", "", "", "Foundation layer unified", 1))
+				.raw_html (project_card ("simple_service_api", "", "", "Service layer unified", 2))
+				.raw_html (project_card ("simple_app_api", "", "", "Full stack unified", 3))
+				.do_nothing
 			l_container.raw_html (l_grid.to_html).do_nothing
 
 			-- CTA

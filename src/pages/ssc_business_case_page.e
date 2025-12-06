@@ -71,24 +71,25 @@ feature -- Content
 
 			-- ROI Analysis
 			Result.append (section_heading ("ROI Analysis"))
-			Result.append (paragraph ("Case study: 12 libraries built in 10 days"))
+			Result.append (paragraph ("Case study: 25 libraries + 4 apps built in 13 days"))
 			Result.append ("<div class=%"bg-[#1a1a1a] rounded-lg p-6 mb-8%">%N")
 			Result.append ("  <div class=%"grid grid-cols-2 gap-8%">%N")
 			Result.append ("    <div>%N")
 			Result.append ("      <div class=%"text-sm opacity-60 mb-1%">Traditional Estimate</div>%N")
-			Result.append ("      <div class=%"text-2xl font-bold%">$467,500 - $765,000</div>%N")
+			Result.append ("      <div class=%"text-2xl font-bold%">$595,000 - $935,000</div>%N")
 			Result.append ("    </div>%N")
 			Result.append ("    <div>%N")
 			Result.append ("      <div class=%"text-sm opacity-60 mb-1%">Actual Cost</div>%N")
-			Result.append ("      <div class=%"text-2xl font-bold text-emerald-400%">~$7,500</div>%N")
+			Result.append ("      <div class=%"text-2xl font-bold text-emerald-400%">~$10,000</div>%N")
 			Result.append ("    </div>%N")
 			Result.append ("  </div>%N")
 			Result.append ("  <div class=%"mt-6 pt-6 border-t border-white/10%">%N")
 			Result.append ("    <div class=%"text-sm opacity-60 mb-1%">ROI</div>%N")
-			Result.append ("    <div class=%"text-3xl font-bold%">6,133%% - 10,100%%</div>%N")
-			Result.append ("    <div class=%"text-sm opacity-70 mt-2%">For every $1 invested: $62-$102 in value</div>%N")
+			Result.append ("    <div class=%"text-3xl font-bold%">5,850%% - 9,250%%</div>%N")
+			Result.append ("    <div class=%"text-sm opacity-70 mt-2%">For every $1 invested: $59-$94 in value</div>%N")
 			Result.append ("  </div>%N")
 			Result.append ("</div>%N")
+			Result.append (christmas_sprint_roi)
 			Result.append (divider)
 
 			-- Risk Analysis
@@ -174,6 +175,21 @@ feature {NONE} -- Content Helpers
 			Result.append ("<div class=%"flex items-center gap-4%">%N")
 			Result.append ("  <span class=%"text-2xl font-bold opacity-30%">" + a_number + "</span>%N")
 			Result.append ("  <a href=%"" + a_url + "%" class=%"hover:text-blue-400 transition-colors%">" + a_text + " →</a>%N")
+			Result.append ("</div>%N")
+		end
+
+	christmas_sprint_roi: STRING
+			-- Christmas Sprint ROI highlight
+		do
+			create Result.make (800)
+			Result.append ("<div class=%"bg-emerald-900/20 border border-emerald-500/30 rounded-lg p-6 mb-8%">%N")
+			Result.append ("  <h4 class=%"font-medium text-emerald-400 mb-4%">Christmas Sprint Highlight</h4>%N")
+			Result.append ("  <p class=%"text-sm opacity-80 mb-4%">14 libraries built in 2 days (planned: 26 days)</p>%N")
+			Result.append ("  <div class=%"grid grid-cols-3 gap-4 text-center%">%N")
+			Result.append ("    <div><div class=%"text-xl font-bold%">13x</div><div class=%"text-xs opacity-60%">faster</div></div>%N")
+			Result.append ("    <div><div class=%"text-xl font-bold%">~1.5h</div><div class=%"text-xs opacity-60%">per library</div></div>%N")
+			Result.append ("    <div><div class=%"text-xl font-bold%">100%%</div><div class=%"text-xs opacity-60%">complete</div></div>%N")
+			Result.append ("  </div>%N")
 			Result.append ("</div>%N")
 		end
 

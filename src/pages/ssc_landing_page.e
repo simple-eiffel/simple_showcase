@@ -68,7 +68,7 @@ feature -- Access
 
 	title: STRING = "Simple Showcase"
 
-	description: STRING = "12 libraries. 900+ tests. 10 days. One person. AI-assisted, contract-verified development."
+	description: STRING = "25 libraries. 1,200+ tests. 13 days. One person. AI-assisted, contract-verified development."
 
 feature -- Sections
 
