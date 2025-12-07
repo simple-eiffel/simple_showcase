@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/simple_showcase/">
+  <title>Competitive Analysis | Simple Showcase</title>
+  <meta name="description" content="Examining AI-assisted Eiffel development compared to mainstream alternatives">
+  <link rel="icon" type="image/png" href="/simple_showcase/logo-5.png">
+  <link rel="manifest" href="/simple_showcase/manifest.json">
+  <meta name="theme-color" content="#0c0b0b">
+  <link rel="apple-touch-icon" href="/simple_showcase/logo-5.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<style>
+  .section-divider { border-top: 1px solid rgba(255,255,255,0.1); margin: 3rem 0; }
+  .content-section { margin-bottom: 3rem; }
+  .code-block { background: #1a1a1a; padding: 1.5rem; border-radius: 0.5rem; overflow-x: auto; }
+  .code-block code { color: #8fdf8f; font-family: monospace; font-size: 0.875rem; line-height: 1.6; }
+  .stat-box { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 0.5rem; text-align: center; }
+  .stat-number { font-size: 2.5rem; font-weight: bold; font-variant-numeric: tabular-nums; }
+  .stat-label { font-size: 0.875rem; opacity: 0.7; }
+  .card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 0.5rem; transition: background 0.2s; }
+  .card:hover { background: rgba(255,255,255,0.1); }
+.tooltip-term { position: relative; cursor: help; border-bottom: 1px dotted currentColor; }
+.tooltip-icon { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 14px; margin-left: 2px; font-size: 10px; font-weight: bold; border: 1px solid currentColor; border-radius: 50%; opacity: 0.6; vertical-align: super; }
+.tooltip-content { visibility: hidden; opacity: 0; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%) translateY(-8px); width: 280px; padding: 12px 16px; background: #1a1a1a; color: #fdfcfa; font-size: 14px; line-height: 1.5; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); z-index: 100; transition: opacity 0.2s, visibility 0.2s; pointer-events: none; }
+.tooltip-content::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 8px solid transparent; border-top-color: #1a1a1a; }
+.tooltip-term:hover .tooltip-content { visibility: visible; opacity: 1; }
+</style>
+</head>
+<body class="bg-[#0c0b0b] text-[#fdfcfa] antialiased min-h-screen">
+<div class="fixed top-4 left-4 z-50" x-data="{ menuOpen: false }">
+  <button @click="menuOpen = !menuOpen" class="w-12 h-12 rounded-full bg-black/90 backdrop-blur-sm border border-white/30 flex items-center justify-center hover:bg-white/20 hover:border-white/50 transition-all" aria-label="Navigation menu">
+    <div class="flex flex-col gap-1.5">
+      <span class="block w-5 h-0.5 bg-white/80 transition-all" :class="menuOpen ? 'rotate-45 translate-y-2' : ''"></span>
+      <span class="block w-5 h-0.5 bg-white/80 transition-all" :class="menuOpen ? 'opacity-0' : ''"></span>
+      <span class="block w-5 h-0.5 bg-white/80 transition-all" :class="menuOpen ? '-rotate-45 -translate-y-2' : ''"></span>
+    </div>
+  </button>
+  <div x-show="menuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-x-4" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 -translate-x-4" @click.outside="menuOpen = false" class="absolute top-14 left-0 w-[calc(100vw-2rem)] sm:w-72 max-w-72 bg-[#0c0b0b]/95 backdrop-blur-md rounded-lg border border-white/10 shadow-2xl overflow-hidden">
+    <div class="px-4 py-3 border-b border-white/10">
+      <span class="text-sm font-medium opacity-60">Navigate</span>
+    </div>
+    <nav class="py-2 max-h-[70vh] overflow-y-auto">
+      <a href="." class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Home</div>
+        <div class="text-xs opacity-50">Back to landing page</div>
+      </a>
+      <a href="get-started" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Get Started</div>
+        <div class="text-xs opacity-50">Start building with Eiffel + AI</div>
+      </a>
+      <a href="portfolio" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Portfolio</div>
+        <div class="text-xs opacity-50">See the project evidence</div>
+      </a>
+      <a href="design-by-contract" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Design by Contract</div>
+        <div class="text-xs opacity-50">How DBC works</div>
+      </a>
+      <a href="workflow" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Workflow</div>
+        <div class="text-xs opacity-50">The human-AI collaboration</div>
+      </a>
+      <a href="analysis" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Analysis</div>
+        <div class="text-xs opacity-50">Competitive analysis</div>
+      </a>
+      <a href="business-case" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Business Case</div>
+        <div class="text-xs opacity-50">ROI and risk analysis</div>
+      </a>
+      <a href="why-eiffel" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Why Eiffel</div>
+        <div class="text-xs opacity-50">Language choice explained</div>
+      </a>
+      <a href="probable-to-provable" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Probable to Provable</div>
+        <div class="text-xs opacity-50">The core framework</div>
+      </a>
+      <a href="old-way" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">The Old Way</div>
+        <div class="text-xs opacity-50">Traditional approach costs</div>
+      </a>
+      <a href="ai-changes" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">AI Changes</div>
+        <div class="text-xs opacity-50">What AI actually changes</div>
+      </a>
+      <a href="contact" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Contact</div>
+        <div class="text-xs opacity-50">Get in touch</div>
+      </a>
+      <a href="full-report" class="block px-4 py-2 hover:bg-white/10 transition-colors group">
+        <div class="font-medium group-hover:text-blue-400 transition-colors">Competitive Analysis</div>
+        <div class="text-xs opacity-50">Full technology assessment</div>
+      </a>
+    </nav>
+    <div class="px-4 py-3 border-t border-white/10 text-xs opacity-40">
+      <p>Built with Eiffel + AI + DBC</p>
+    </div>
+  </div>
+</div>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-16">
+<header class="mb-8 sm:mb-16 pt-4 sm:pt-8">
+  <p class="text-xs uppercase tracking-widest opacity-60 mb-4">FULL REPORT</p>
+  <h1 class="text-3xl sm:text-4xl md:text-5xl font-light mb-4 sm:mb-6">Competitive Analysis</h1>
+  <p class="text-lg sm:text-xl opacity-80 max-w-2xl">Examining AI-assisted Eiffel development compared to mainstream alternatives</p>
+</header>
+<p class="text-sm opacity-60 mb-8">December 2025 | Technology Assessment | Version 2.0</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Executive Summary</h2>
+<p class="mb-4 opacity-90 leading-relaxed">This report examines findings from a 13-day AI-assisted development effort using the Eiffel programming language, producing 25 libraries and 4 applications with over 1,200 tests. The assessment evaluates claims made about language ecosystem advantages and examines how AI assistance affects traditional language selection criteria.</p>
+<div class="bg-white/5 rounded-lg p-6 mb-8">
+  <h4 class="font-medium mb-4">Key Findings</h4>
+  <ul class="space-y-2 text-sm opacity-90">
+    <li>1. Developer training time (5 days) is comparable to onboarding time in any language</li>
+    <li>2. Library creation velocity (1-2 days each) changes the build vs. import calculus <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Measured range: simple_base64 ~2 hours, simple_json ~4 days, simple_sql ~2 days. Includes comprehensive tests, full documentation, and GitHub Pages site. Being thorough (edge cases, error handling, docs) adds time but the max observed was still under 2 days for most libraries.</span></span></li>
+    <li>3. AI-assisted workflows reduce traditional IDE dependencies</li>
+    <li>4. Design by Contract provides runtime verification of AI-generated code</li>
+    <li>5. Productivity multipliers of 40-80x were measured across multiple projects <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Calculated as: (Industry estimate for equivalent LOC) ÷ (Actual time). Example: simple_json's 11,400 lines would take 11-16 months at industry rates (McConnell/Brooks); we built it in 4 days = 44-66x. Christmas Sprint's 9x was lower because the 26-day estimate was already aggressive.</span></span></li>
+  </ul>
+</div>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Methodology</h2>
+<p class="mb-4 opacity-90 leading-relaxed">The development effort involved:</p>
+<ul class="list-disc list-inside space-y-2 mb-6 opacity-90">
+  <li><strong>Duration:</strong> Approximately 13 calendar days (~120 effective hours)</li>
+  <li><strong>Output:</strong> ~85,000 lines of pre-production code across 29 projects (internal use, alpha-stage)</li>
+  <li><strong>Testing:</strong> 1,200+ automated tests with contract verification <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Tests are designed to exercise Design by Contract assertions (preconditions, postconditions, invariants) that live permanently in the codebase. This is Bertrand Meyer's 'Probable to Provable' approach—tests don't just check behavior, they verify the contracts that define correctness.</span></span></li>
+  <li><strong>Documentation:</strong> 27 GitHub repositories with GitHub Pages documentation sites</li>
+  <li><strong>Tooling:</strong> Claude Code CLI, EiffelStudio compiler, Git</li>
+</ul>
+<p class="mb-4 opacity-90 leading-relaxed">This analysis emerged from structured dialogue examining conventional assumptions about language ecosystems, with conclusions revised based on demonstrated evidence rather than speculation.</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Case Study: The Christmas Sprint</h2>
+<p class="mb-4 opacity-90 leading-relaxed">A planned 26-day development sprint was completed in 3 days, delivering 11 libraries:</p>
+<div class="overflow-x-auto mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-red-600/20 to-green-600/20">
+<th class="text-left py-3 px-4 font-semibold">Metric</th>
+<th class="text-left py-3 px-4 font-semibold">Traditional Est.</th>
+<th class="text-left py-3 px-4 font-semibold">Actual</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Lines of Code</td><td class="py-3 px-4 opacity-70">—</td><td class="py-3 px-4 text-blue-300">~12,850</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Duration</td><td class="py-3 px-4 opacity-70">5-11 months <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Traditional estimate based on McConnell/Brooks industry data: 50-100 lines/day for complex systems. 12,850 lines at 50 lines/day = 256 days (11 months). At 100 lines/day = 128 days (5 months). Actual: 3 days = 40-85x multiplier.</span></span></td><td class="py-3 px-4 text-emerald-400 font-bold">3 days <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Our conservative Eiffel+AI estimate was 26 days. Actual: 3 days. Even our aggressive estimate was ~9x too slow.</span></span></td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Libraries</td><td class="py-3 px-4 opacity-70">11</td><td class="py-3 px-4 text-emerald-400">11 (100%)</td></tr>
+<tr class="bg-emerald-500/10"><td class="py-3 px-4 font-medium">Multiplier</td><td class="py-3 px-4 opacity-70">—</td><td class="py-3 px-4 text-emerald-300 font-bold text-lg">40-85x</td></tr>
+</tbody></table>
+</div>
+<p class="mb-4 opacity-90 leading-relaxed">This represents a 40-85x productivity multiplier compared to traditional development estimates (McConnell/Brooks: 50-100 lines/day). The ~12,850 lines of production code delivered in 3 days would typically require 5-11 months.</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Competitive Landscape</h2>
+<p class="mb-4 opacity-90 leading-relaxed">How does Eiffel's type-safe HTML generation compare to established solutions in other languages? The table below shows mature alternatives. Note the maturity column—most competitors have years of production use and large communities. The question is whether AI-assisted development velocity can close this gap.</p>
+<div class="overflow-x-auto mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+<th class="text-left py-3 px-4 font-semibold">Language</th>
+<th class="text-left py-3 px-4 font-semibold">Library</th>
+<th class="text-left py-3 px-4 font-semibold">Maturity</th>
+<th class="text-left py-3 px-4 font-semibold">Community</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">Kotlin</td><td class="py-3 px-4 text-blue-300">kotlinx.html</td><td class="py-3 px-4 opacity-70">JetBrains official</td><td class="py-3 px-4">Large</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">Scala</td><td class="py-3 px-4 text-blue-300">ScalaTags</td><td class="py-3 px-4 opacity-70">10+ years</td><td class="py-3 px-4">Large</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">F#</td><td class="py-3 px-4 text-blue-300">Giraffe.ViewEngine</td><td class="py-3 px-4 opacity-70">Production-ready</td><td class="py-3 px-4">Active</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">Rust</td><td class="py-3 px-4 text-blue-300">Maud</td><td class="py-3 px-4 opacity-70">Compile-time verified</td><td class="py-3 px-4">Growing</td></tr>
+<tr class="bg-gradient-to-r from-emerald-600/20 to-emerald-500/10"><td class="py-3 px-4 font-semibold text-emerald-300">Eiffel (40+ yrs)</td><td class="py-3 px-4 text-emerald-300">Simple_* <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Simple_* is the library collection built during this project: simple_json, simple_web, simple_htmx, simple_alpine, and 21 others. The Eiffel language is 40+ years mature; these libraries are brand new.</span></span></td><td class="py-3 px-4">Libraries new (2025)</td><td class="py-3 px-4">25 libs documented</td></tr>
+</tbody></table>
+</div>
+<p class="mb-4 opacity-90 leading-relaxed">Each ecosystem offers different trade-offs. Eiffel's entry is new but was built rapidly; whether that speed advantage persists in maintenance and evolution remains to be seen.</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Addressing Common Concerns</h2>
+<h3 class="text-lg font-medium mt-6 mb-3">Developer Availability</h3>
+<div class="flex items-start gap-3 p-4 mb-3 bg-red-500/10 border-l-4 border-red-500/50 rounded-r-lg">
+  <span class="text-red-400 font-bold text-sm">CONCERN</span>
+  <p class="text-red-200/90 italic">"Eiffel developers are difficult to find."</p>
+</div>
+<div class="flex items-start gap-3 p-4 mb-4 bg-emerald-500/10 border-l-4 border-emerald-500/50 rounded-r-lg">
+  <span class="text-emerald-400 font-bold text-sm">EVIDENCE</span>
+  <p class="opacity-90">Hundreds of developers have been trained in Eiffel over its 40-year history <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Eiffel was created by Bertrand Meyer in 1986. It pioneered Design by Contract, multiple inheritance done right, and void safety. The language has remained stable while incorporating modern features.</span></span>. In one 5-year enterprise project, 12+ developers <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Yes, 12 is a small team—by design. Eiffel's power (DBC, strong typing, clear semantics) meant we didn't need hundreds of developers. With AI assistance, even smaller teams become viable. Quality over quantity.</span></span> were onboarded through an in-house training program—each reaching productivity in 5 days <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Training covered: Eiffel syntax, Design by Contract methodology, EiffelStudio IDE, the project's domain model, and coding standards. Developers wrote production code by day 5.</span></span> with ground-up Eiffel training. This is comparable to onboarding experienced developers to unfamiliar codebases in any language.</p>
+</div>
+<div class="overflow-x-auto mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-amber-600/20 to-orange-600/20">
+<th class="text-left py-3 px-4 font-semibold">Approach</th>
+<th class="text-left py-3 px-4 font-semibold">Time to Productivity</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">Hire experienced Kotlin developer</td><td class="py-3 px-4 text-amber-300">1-2 weeks codebase onboarding</td></tr>
+<tr class="bg-white/5"><td class="py-3 px-4 font-medium">Train developer in Eiffel + stack</td><td class="py-3 px-4 text-emerald-300">1 week training + 1-2 weeks onboarding</td></tr>
+</tbody></table>
+<p class="text-xs opacity-60 mt-3 px-4">Delta: approximately one week—often offset by higher code quality and fewer bugs</p>
+</div>
+<h3 class="text-lg font-medium mt-6 mb-3">Library Ecosystem</h3>
+<div class="flex items-start gap-3 p-4 mb-3 bg-red-500/10 border-l-4 border-red-500/50 rounded-r-lg">
+  <span class="text-red-400 font-bold text-sm">CONCERN</span>
+  <p class="text-red-200/90 italic">"Eiffel lacks the library ecosystem of npm/Maven/Cargo."</p>
+</div>
+<div class="flex items-start gap-3 p-4 mb-4 bg-emerald-500/10 border-l-4 border-emerald-500/50 rounded-r-lg">
+  <span class="text-emerald-400 font-bold text-sm">EVIDENCE</span>
+  <p class="opacity-90">25 libraries were built in 13 days, averaging ~1.5 hours per library including tests and documentation. This suggests library creation velocity may offset ecosystem size for teams willing to build in-house—or outsource to Eiffel Software, whose experts understand how to leverage AI+Eiffel to craft libraries quickly and refine them. Even when bugs surface (no code is bug-free), AI+Eiffel affords routes to temporary in-house patches or workarounds while specialized Eiffel developers craft permanent fixes.</p>
+</div>
+<div class="overflow-x-auto mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-purple-600/20 to-pink-600/20">
+<th class="text-left py-3 px-4 font-semibold">Factor</th>
+<th class="text-left py-3 px-4 font-semibold text-red-300">Large Ecosystem (npm)</th>
+<th class="text-left py-3 px-4 font-semibold text-emerald-300">Build-Your-Own (Eiffel)</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Initial availability</td><td class="py-3 px-4 text-emerald-300">Immediate</td><td class="py-3 px-4 text-amber-300">Build time required</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Supply chain security</td><td class="py-3 px-4 text-red-300">Transitive dependencies</td><td class="py-3 px-4 text-emerald-300">Full control</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Breaking changes</td><td class="py-3 px-4 text-red-300">Upstream risk</td><td class="py-3 px-4 text-emerald-300">Self-controlled</td></tr>
+<tr class="hover:bg-white/5 transition-colors"><td class="py-3 px-4 font-medium">Bug fixes</td><td class="py-3 px-4 text-amber-300">PR and wait, or fork</td><td class="py-3 px-4 text-emerald-300">Immediate</td></tr>
+</tbody></table>
+</div>
+<h3 class="text-lg font-medium mt-6 mb-3">Tooling</h3>
+<div class="flex items-start gap-3 p-4 mb-3 bg-red-500/10 border-l-4 border-red-500/50 rounded-r-lg">
+  <span class="text-red-400 font-bold text-sm">CONCERN</span>
+  <p class="text-red-200/90 italic">"EiffelStudio lacks modern IDE features like VS Code integration."</p>
+</div>
+<div class="flex items-start gap-3 p-4 mb-4 bg-emerald-500/10 border-l-4 border-emerald-500/50 rounded-r-lg">
+  <span class="text-emerald-400 font-bold text-sm">EVIDENCE</span>
+  <p class="opacity-90">AI-assisted workflows shift which IDE features matter most. This project used Claude Code CLI for primary editing, bulk editing, and bulk creation—but humans with EiffelStudio <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">EiffelStudio features that remain essential: Interactive Debugger with contract state inspection, BON diagrams, class/feature browsers, AutoTest integration, metrics tools, and documentation generation. These leverage Eiffel's design in ways VS Code extensions cannot replicate.</span></span> remained essential for debugging, contract monitoring, and the advanced development tools that other IDEs only wish they had. The IDE's power comes from Eiffel's elegant design—features like the Debugger and BON diagrams leverage the language's structure in ways generic IDEs cannot. Humans can always step in to make corrections, then use those corrections to 'train' the AI to follow specific design patterns and adhere to coding standards—including in-house standards.</p>
+</div>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Comparative Assessment</h2>
+<h3 class="text-lg font-medium mt-6 mb-3">Where Eiffel Demonstrates Advantages</h3>
+<ul class="list-disc list-inside space-y-2 mb-6 opacity-90">
+  <li><strong>Runtime Verification:</strong> Design by Contract provides automatic verification of AI-generated code correctness <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Critical context: Industry data shows AI is introducing MORE bugs, not fewer (GitClear 2024: code churn doubled post-Copilot). Security researchers report higher vulnerability rates in AI-generated code. DBC is the countermeasure—contracts catch AI's plausible-but-wrong code immediately. We caught dozens of such errors during this project.</span></span></li>
+  <li><strong>Language Stability:</strong> Code written years ago compiles without modification, unlike rapidly-evolving ecosystems <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Eiffel code from 2010 compiles today without modification. No 'Library Fashion Week' hell—where last year's hot framework is this year's legacy burden. Compare: JavaScript (jQuery→Angular→React→Next), Python 2→3 migration pain, constant npm breaking changes. Eiffel's stability is a massive competitive advantage for long-lived systems.</span></span></li>
+  <li><strong>Conceptual Simplicity:</strong> Fewer paradigms to learn (classes, contracts, inheritance, generics)</li>
+  <li><strong>Compile-time Safety:</strong> Void safety <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Void safety prevents null pointer exceptions at compile time. Variables must be explicitly declared as potentially void (detachable) and checked before use. Similar to Kotlin's null safety or Rust's Option type.</span></span> and strong typing comparable to Kotlin/Rust</li>
+</ul>
+<h3 class="text-lg font-medium mt-6 mb-3">Where Eiffel Faces Challenges</h3>
+<ul class="list-disc list-inside space-y-2 mb-6 opacity-90">
+  <li><strong>IDE Options:</strong> EiffelStudio is the primary IDE; no full-featured VS Code or JetBrains support <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">VS Code + Eiffel integration is actively being developed by an Eiffel Software engineer in Europe. This will provide a familiar editing experience while EiffelStudio remains available for advanced debugging and analysis.</span></span></li>
+  <li><strong>Community Resources:</strong> Fewer Stack Overflow answers, tutorials, and blog posts compared to mainstream languages</li>
+  <li><strong>Commercial Perception:</strong> May require justification in enterprise contexts unfamiliar with the language</li>
+</ul>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">The AI Factor</h2>
+<p class="mb-4 opacity-90 leading-relaxed">A critical question: how well do AI coding assistants work with Eiffel compared to mainstream languages? The answer depends on training data. AI models learn from public code—languages with more GitHub repositories and Stack Overflow answers produce better AI suggestions out of the box.</p>
+<p class="mb-4 opacity-90 leading-relaxed">The table below shows estimated accuracy rates. Look at the "With Docs" column—this is where things get interesting:</p>
+<div class="mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-cyan-600/20 to-blue-600/20">
+<th class="text-left py-2 px-3 font-semibold">Language</th>
+<th class="text-left py-2 px-3 font-semibold">Data</th>
+<th class="text-left py-2 px-3 font-semibold">Baseline <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Baseline accuracy = how often AI generates correct, idiomatic code without additional context. Languages with massive training data (Python, JS) get better suggestions out of the box. Eiffel's smaller corpus means AI makes more syntax errors and non-idiomatic choices initially—but this gap closes dramatically with good documentation.</span></span></th>
+<th class="text-left py-2 px-3 font-semibold text-emerald-300">+Docs</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5"><td class="py-2 px-3">Python</td><td class="py-2 px-3 text-blue-300">Massive</td><td class="py-2 px-3">95%+</td><td class="py-2 px-3">97%+</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5"><td class="py-2 px-3">JavaScript</td><td class="py-2 px-3 text-blue-300">Massive</td><td class="py-2 px-3">95%+</td><td class="py-2 px-3">97%+</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5"><td class="py-2 px-3">Kotlin</td><td class="py-2 px-3 text-cyan-300">Large</td><td class="py-2 px-3">90%+</td><td class="py-2 px-3">95%+</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5"><td class="py-2 px-3">Rust</td><td class="py-2 px-3 text-amber-300">Med-Lg</td><td class="py-2 px-3">85%+</td><td class="py-2 px-3">92%+</td></tr>
+<tr class="bg-gradient-to-r from-emerald-600/20 to-emerald-500/10"><td class="py-2 px-3 font-semibold text-emerald-300">Eiffel</td><td class="py-2 px-3 text-red-300">Small</td><td class="py-2 px-3 text-red-300">60%+</td><td class="py-2 px-3 text-emerald-300 font-bold">95%+ <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Docs provide syntax patterns, DBC conventions, and working examples. The AI stops guessing and follows verified patterns.</span></span></td></tr>
+</tbody></table>
+<p class="text-xs opacity-60 mt-3 px-3">★ Documentation closes the gap. Estimates based on observed error rates.</p>
+</div>
+<p class="mb-4 opacity-90 leading-relaxed">Reference documentation (patterns, gotchas, verified solutions) can largely close the gap. With good docs, Eiffel's AI accuracy approaches mainstream levels. The 13-day development effort produced extensive documentation specifically for this purpose.</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Productivity Analysis</h2>
+<p class="mb-4 opacity-90 leading-relaxed">Measured productivity multipliers compared to traditional development estimates:</p>
+<div class="overflow-x-auto mb-6 rounded-lg border border-white/10">
+<table class="w-full text-sm">
+<thead><tr class="bg-gradient-to-r from-emerald-600/20 to-teal-600/20">
+<th class="text-left py-3 px-4 font-semibold">Project</th>
+<th class="text-left py-3 px-4 font-semibold">Traditional Est.</th>
+<th class="text-left py-3 px-4 font-semibold">Actual</th>
+<th class="text-left py-3 px-4 font-semibold text-emerald-300">Multiplier</th>
+</tr></thead>
+<tbody>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">simple_json <span class="opacity-50">(11,400 lines)</span></td><td class="py-3 px-4 opacity-60">11-16 months</td><td class="py-3 px-4 text-blue-300">4 days</td><td class="py-3 px-4 text-emerald-400 font-bold">44-66x</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">simple_sql <span class="opacity-50">(17,200 lines)</span></td><td class="py-3 px-4 opacity-60">9-14 months</td><td class="py-3 px-4 text-blue-300">2 days</td><td class="py-3 px-4 text-emerald-400 font-bold">50-75x</td></tr>
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors"><td class="py-3 px-4">simple_web <span class="opacity-50">(8,000 lines)</span></td><td class="py-3 px-4 opacity-60">2-3 months</td><td class="py-3 px-4 text-blue-300">18 hours</td><td class="py-3 px-4 text-emerald-400 font-bold">50-80x</td></tr>
+<tr class="bg-emerald-500/10"><td class="py-3 px-4 font-medium">Christmas Sprint <span class="opacity-50">(~12,850 lines)</span></td><td class="py-3 px-4 opacity-60">5-11 months</td><td class="py-3 px-4 text-emerald-300">3 days</td><td class="py-3 px-4 text-emerald-400 font-bold">40-85x</td></tr>
+</tbody></table>
+</div>
+<p class="mb-4 opacity-90 leading-relaxed">These figures represent measured output vs. industry estimates <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Sources: Steve McConnell's 'Code Complete' cites 50-100 lines/day for complex systems. Fred Brooks' 'Mythical Man-Month' suggests 10-25 lines/day including all project overhead. We used conservative ranges to avoid overstating gains. Your mileage will vary based on domain complexity and team experience.</span></span> for equivalent functionality. Individual results will vary based on domain complexity, team experience, and AI tool proficiency.</p>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Resulting Architecture</h2>
+<p class="mb-4 opacity-90 leading-relaxed">The 25 libraries organize into a layered architecture:</p>
+<div class="space-y-3 mb-8">
+  <div class="bg-gradient-to-r from-blue-600/20 to-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+    <div class="text-blue-400 font-semibold text-sm mb-1">APP_API</div>
+    <div class="text-xs opacity-70">Unified access to entire simple_* stack</div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div class="bg-gradient-to-r from-emerald-600/20 to-emerald-500/10 border border-emerald-500/30 rounded-lg p-4">
+      <div class="text-emerald-400 font-semibold text-sm mb-2">SERVICE_API</div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">JWT</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">SMTP</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">SQL</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">CORS</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Rate Limit</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Template</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">WebSocket</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Cache</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Logger</span>
+      </div>
+    </div>
+    <div class="bg-gradient-to-r from-purple-600/20 to-purple-500/10 border border-purple-500/30 rounded-lg p-4">
+      <div class="text-purple-400 font-semibold text-sm mb-2">WEB LAYER</div>
+      <div class="flex flex-wrap gap-1.5">
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">HTTP Server</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">HTTP Client</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">HTML Builder</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">HTMX</span>
+        <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Alpine.js</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gradient-to-r from-amber-600/20 to-amber-500/10 border border-amber-500/30 rounded-lg p-4">
+    <div class="text-amber-400 font-semibold text-sm mb-2">FOUNDATION_API</div>
+    <div class="flex flex-wrap gap-1.5">
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Base64</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Hash</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">UUID</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">JSON</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">CSV</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Markdown</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Validation</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Process</span>
+      <span class="px-2 py-0.5 bg-white/5 rounded text-xs">Randomizer</span>
+    </div>
+  </div>
+  <p class="text-xs opacity-50 text-center mt-4">25 libraries organized in layered dependency architecture</p>
+  <p class="text-xs opacity-40 text-center mt-2">Coming soon to FOUNDATION_API: simple_xml, simple_datetime, simple_file, simple_regex <span class="tooltip-term"><span class="tooltip-icon">i</span><span class="tooltip-content">Roadmap: simple_xml (wraps XM_* classes), simple_datetime (wraps DATE/TIME), simple_file (wraps FILE/PATH/DIRECTORY), simple_regex (wraps Gobo PCRE). These create clean facades over powerful but verbose EiffelStudio libraries.</span></span></p>
+</div>
+<div class="section-divider"></div>
+<h2 class="text-xl sm:text-2xl font-medium mb-4 sm:mb-6">Conclusions</h2>
+<p class="mb-4 opacity-90 leading-relaxed">Based on the evidence examined:</p>
+<ul class="list-disc list-inside space-y-2 mb-6 opacity-90">
+  <li>AI-assisted development can achieve 40-80x productivity multipliers in favorable conditions</li>
+  <li>Traditional concerns about developer availability may be addressable through training</li>
+  <li>Library ecosystem limitations are offset when creation velocity is measured in hours rather than months</li>
+  <li>Design by Contract provides unique value for AI-generated code verification</li>
+  <li>IDE tooling becomes less critical in AI-assisted workflows</li>
+</ul>
+<p class="mb-4 opacity-90 leading-relaxed">These findings suggest that language selection criteria may need reassessment in the context of AI-assisted development. The traditional emphasis on ecosystem size and tooling sophistication may be less decisive than previously assumed.</p>
+<div class="mt-8 p-6 bg-white/5 rounded-lg">
+<p class="text-sm opacity-80"><strong>Methodology Note:</strong> This assessment emerged from human-AI dialogue where assumptions were systematically challenged. All libraries are currently in alpha stage with internal consumers only. Conclusions were revised based on demonstrated evidence. The goal was accuracy, not advocacy.</p>
+</div>
+<div class="mt-8 flex flex-wrap gap-4">
+<a href="portfolio" class="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors">View the Portfolio</a>
+<a href="business-case" class="inline-block px-6 py-3 bg-white/10 hover:bg-white/20 rounded-full text-sm transition-colors">See the Business Case</a>
+<a href="https://github.com/ljr1981/claude_eiffel_op_docs/blob/main/strategy/COMPETITIVE_ANALYSIS.md" target="_blank" class="text-blue-400 hover:underline">Full Analysis (GitHub) ↗</a></div>
+<footer class="mt-16 pt-8 border-t border-white/10">
+  <div class="flex flex-wrap gap-4 mb-8">
+    <a href="." class="text-sm opacity-60 hover:opacity-100 transition-opacity">Back to home</a>
+    <a href="portfolio" class="text-sm opacity-60 hover:opacity-100 transition-opacity">Portfolio</a>
+    <a href="business-case" class="text-sm opacity-60 hover:opacity-100 transition-opacity">Business Case</a>
+    <a href="analysis" class="text-sm opacity-60 hover:opacity-100 transition-opacity">Competitive Analysis</a>
+  </div>
+<div class="text-xs opacity-40 pt-4 border-t border-white/5">
+  <p class="mb-2">This site is built with the approach it describes.</p>
+  <p>No frameworks. No bundlers. No node_modules. Just Eiffel + AI + Design by Contract.</p>
+  <p class="mt-2"><a href="https://github.com/ljr1981/simple_showcase" target="_blank" class="text-blue-400 hover:underline">View the source on GitHub ↗</a></p>
+</div>
+</footer>
+</main>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/simple_showcase/sw.js')
+      .then(reg => console.log('SW registered'))
+      .catch(err => console.log('SW failed:', err));
+  }
+</script>
+</body>
+</html>

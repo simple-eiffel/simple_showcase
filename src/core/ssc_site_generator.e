@@ -99,8 +99,9 @@ feature {NONE} -- Generation
 			generate_old_way_page
 			generate_ai_changes_page
 			generate_contact_page
+			generate_full_report_page
 
-			print ("%N  Generated 12 pages%N")
+			print ("%N  Generated 13 pages%N")
 		end
 
 feature {NONE} -- Page Generation
@@ -225,6 +226,16 @@ feature {NONE} -- Page Generation
 			print ("  [OK] /contact -> docs/contact/index.html%N")
 		end
 
+	generate_full_report_page
+			-- Generate full report (competitive analysis) page
+		local
+			l_page: SSC_FULL_REPORT_PAGE
+		do
+			create l_page.make
+			write_file ("docs/full-report/index.html", l_page.to_html)
+			print ("  [OK] /full-report -> docs/full-report/index.html%N")
+		end
+
 feature {NONE} -- File Operations
 
 	write_file (a_path, a_content: STRING)
@@ -295,9 +306,9 @@ feature {NONE} -- Constants
 		once
 			Result := <<"get-started", "portfolio", "design-by-contract", "workflow",
 				"analysis", "business-case", "why-eiffel", "probable-to-provable",
-				"old-way", "ai-changes", "contact">>
+				"old-way", "ai-changes", "contact", "full-report">>
 		ensure
-			eleven_directories: Result.count = 11
+			twelve_directories: Result.count = 12
 		end
 
 end
