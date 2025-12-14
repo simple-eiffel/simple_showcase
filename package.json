@@ -1,0 +1,9 @@
+{
+  "name": "simple_showcase",
+  "version": "0.1.0",
+  "description": "Simple Showcase - Eiffel+AI paradigm showcase website served via simple_web",
+  "author": "Larry Rix",
+  "license": "MIT",
+  "category": "showcase",
+  "keywords": ["showcase", "demo", "examples"]
+}
