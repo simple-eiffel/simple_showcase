@@ -57,8 +57,8 @@ feature -- Processing
 	process (a_request: SIMPLE_WEB_SERVER_REQUEST; a_response: SIMPLE_WEB_SERVER_RESPONSE; a_next: PROCEDURE)
 			-- Log request to database using per-request connection.
 		local
-			l_start_time: DATE_TIME
-			l_end_time: DATE_TIME
+			l_start_time: SIMPLE_DATE_TIME
+			l_end_time: SIMPLE_DATE_TIME
 			l_elapsed_ms: INTEGER
 			l_path, l_method, l_ip, l_user_agent, l_referrer: STRING
 			l_db: SIMPLE_SQL_DATABASE
@@ -145,18 +145,11 @@ feature {NONE} -- Implementation
 			result_attached: Result /= Void
 		end
 
-	milliseconds_between (a_start, a_end: DATE_TIME): INTEGER
+	milliseconds_between (a_start, a_end: SIMPLE_DATE_TIME): INTEGER
 			-- Calculate milliseconds between two times
-		local
-			l_duration: DATE_TIME_DURATION
 		do
-			l_duration := a_end.relative_duration (a_start)
-			-- Convert to milliseconds (approximate since DATE_TIME_DURATION doesn't have ms)
-			Result := (l_duration.second * 1000).to_integer_32
-			-- Add fractional from fine_second if available
-			if l_duration.second < 60 then
-				Result := Result.max (1) -- At least 1ms
-			end
+			Result := ((a_end.to_timestamp - a_start.to_timestamp) * 1000).to_integer_32
+			Result := Result.max (1) -- At least 1ms
 		ensure
 			non_negative: Result >= 0
 		end

@@ -256,7 +256,7 @@ feature {NONE} -- File Operations
 		local
 			l_file: PLAIN_TEXT_FILE
 			l_content: STRING
-			l_date: DATE_TIME
+			l_date: SIMPLE_DATE_TIME
 			l_version: STRING
 			l_old_version_start, l_old_version_end: INTEGER
 		do

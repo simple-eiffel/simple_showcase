@@ -243,12 +243,10 @@ feature {NONE} -- Test helpers (rate limiting logic - mirrors SSC_SERVER)
 	current_unix_timestamp: INTEGER_64
 			-- Current time as Unix timestamp
 		local
-			l_now: DATE_TIME
-			l_epoch: DATE_TIME
+			l_now: SIMPLE_DATE_TIME
 		do
 			create l_now.make_now
-			create l_epoch.make (1970, 1, 1, 0, 0, 0)
-			Result := l_now.definite_duration (l_epoch).seconds_count
+			Result := l_now.to_timestamp
 		end
 
 	is_rate_limited (a_tracker: HASH_TABLE [ARRAYED_LIST [INTEGER_64], STRING]; a_ip: STRING; a_now: INTEGER_64): BOOLEAN

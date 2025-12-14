@@ -20,7 +20,7 @@
 		<library name="simple_process" location="$SIMPLE_PROCESS\simple_process.ecf"/>
 		<library name="simple_sql" location="$SIMPLE_SQL\simple_sql.ecf"/>
 		<library name="simple_web" location="$SIMPLE_WEB\simple_web.ecf"/>
-		<library name="time" location="$ISE_LIBRARY\library\time\time.ecf"/>
+		<library name="simple_datetime" location="$SIMPLE_DATETIME/simple_datetime.ecf"/>
 		<cluster name="components" location=".\src\components\" recursive="true"/>
 		<cluster name="core" location=".\src\core\" recursive="true"/>
 		<cluster name="pages" location=".\src\pages\" recursive="true"/>

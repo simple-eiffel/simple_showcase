@@ -719,12 +719,10 @@ feature {NONE} -- Rate Limiting
 	current_unix_timestamp: INTEGER_64
 			-- Current time as Unix timestamp (seconds since epoch)
 		local
-			l_now: DATE_TIME
-			l_epoch: DATE_TIME
+			l_now: SIMPLE_DATE_TIME
 		do
 			create l_now.make_now
-			create l_epoch.make (1970, 1, 1, 0, 0, 0)
-			Result := l_now.definite_duration (l_epoch).seconds_count
+			Result := l_now.to_timestamp
 		end
 
 feature -- Form Validation (public for testing)

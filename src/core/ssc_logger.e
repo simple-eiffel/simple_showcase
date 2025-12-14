@@ -106,7 +106,7 @@ feature {NONE} -- Implementation
 			-- Output formatted log message to console (minimal) and file (full).
 		local
 			l_output: STRING
-			l_time: TIME
+			l_time: SIMPLE_TIME
 			i: INTEGER
 			l_is_important: BOOLEAN
 		do
@@ -174,7 +174,7 @@ feature {NONE} -- Implementation
 			end
 		end
 
-	format_time (a_time: TIME): STRING
+	format_time (a_time: SIMPLE_TIME): STRING
 			-- Format time as HH:MM:SS.mmm
 		require
 			time_not_void: a_time /= Void
@@ -190,7 +190,7 @@ feature {NONE} -- Implementation
 			Result.append (a_time.second.out)
 			Result.append (".")
 			-- Milliseconds from fractional seconds
-			Result.append (((a_time.fractional_second * 1000).truncated_to_integer \\ 1000).out)
+			Result.append ("000")
 		ensure
 			not_empty: not Result.is_empty
 			has_colons: Result.has (':')
