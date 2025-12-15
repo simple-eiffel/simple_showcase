@@ -1,21 +1,26 @@
-# Eiffel compilation artifacts
+# Eiffel build artifacts
 EIFGENs/
-*.lock
+Documentation/
 
-# Output directory
-output/
+# Compiled files
+*.melted
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
 
-# Log files (may contain PII from contact form)
-*.log
-ssc_server.log
+# Backup files
+*.swp
+*.bak
+*~
 
-# Database files
-*.db
+# IDE files
+.vscode/
+.idea/
 
-# Sensitive config (use environment variables instead)
-config.production.json
+# OS files
+.DS_Store
+Thumbs.db
 
-# Local deployment notes (contains IPs, credentials info)
-*.local.txt
-DEPLOYMENT_NOTES.local.txt
-*.rc
