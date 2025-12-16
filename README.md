@@ -31,12 +31,11 @@ SIMPLE_SHOWCASE is a web application built entirely in Eiffel that demonstrates 
 
 ### Environment Variables
 
+Set the ecosystem environment variable (one-time setup for all simple_* libraries):
+
 ```powershell
 # Set at User level
-[System.Environment]::SetEnvironmentVariable('SIMPLE_SHOWCASE', 'D:\prod\simple_showcase', 'User')
-[System.Environment]::SetEnvironmentVariable('SIMPLE_ALPINE', 'D:\prod\simple_alpine', 'User')
-[System.Environment]::SetEnvironmentVariable('SIMPLE_HTMX', 'D:\prod\simple_htmx', 'User')
-[System.Environment]::SetEnvironmentVariable('SIMPLE_WEB', 'D:\prod\simple_web', 'User')
+[System.Environment]::SetEnvironmentVariable('SIMPLE_EIFFEL', 'D:\prod', 'User')
 [System.Environment]::SetEnvironmentVariable('TESTING_EXT', 'D:\prod\testing_ext', 'User')
 ```
 
@@ -47,10 +46,7 @@ SIMPLE_SHOWCASE is a web application built entirely in Eiffel that demonstrates 
 cd /d/prod/simple_showcase
 
 # Set environment variables for session
-export SIMPLE_SHOWCASE="D:\\prod\\simple_showcase"
-export SIMPLE_ALPINE="D:\\prod\\simple_alpine"
-export SIMPLE_HTMX="D:\\prod\\simple_htmx"
-export SIMPLE_WEB="D:\\prod\\simple_web"
+export SIMPLE_EIFFEL="D:\\prod"
 export TESTING_EXT="D:\\prod\\testing_ext"
 
 # Compile and run
