@@ -49,3 +49,7 @@ out/
 # Local data
 EIFDATA/
 output/
+# Local files
+*.local.txt
+showcase_dev.db
+test_showcase.db
