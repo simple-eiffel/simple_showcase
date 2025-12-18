@@ -14,7 +14,6 @@
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base.ecf"/>
 		<library name="simple_alpine" location="$SIMPLE_EIFFEL/simple_alpine/simple_alpine.ecf"/>
-		<library name="simple_app_api" location="$SIMPLE_EIFFEL/simple_app_api/simple_app_api.ecf"/>
 		<library name="simple_htmx" location="$SIMPLE_EIFFEL/simple_htmx/simple_htmx.ecf"/>
 		<library name="simple_json" location="$SIMPLE_EIFFEL/simple_json/simple_json.ecf"/>
 		<library name="simple_process" location="$SIMPLE_EIFFEL/simple_process/simple_process.ecf"/>
