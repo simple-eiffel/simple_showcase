@@ -53,3 +53,4 @@ output/
 *.local.txt
 showcase_dev.db
 test_showcase.db
+*.epr
