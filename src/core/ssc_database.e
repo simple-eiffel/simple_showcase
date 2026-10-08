@@ -56,7 +56,7 @@ feature -- Analytics
 		do
 			db.execute_with_args (
 				"INSERT INTO analytics (path, method, ip_address, user_agent, referrer, response_code, response_time_ms) VALUES (?, ?, ?, ?, ?, ?, ?)",
-				<<a_path, a_method, a_ip, a_user_agent, a_referrer, a_response_code, a_response_time_ms>>
+				{ARRAY [detachable ANY]} <<a_path, a_method, a_ip, a_user_agent, a_referrer, a_response_code, a_response_time_ms>>
 			)
 			if db.has_error and then attached db.last_error_message as l_err then
 				log_info ("database", "Failed to log analytics: " + l_err.to_string_8)
@@ -90,7 +90,7 @@ feature -- Analytics
 			create Result.make (a_limit)
 			l_result := db.query_with_args (
 				"SELECT path, method, ip_address, created_at FROM analytics ORDER BY created_at DESC LIMIT ?",
-				<<a_limit>>
+				{ARRAY [detachable ANY]} <<a_limit>>
 			)
 			across l_result.rows as ic loop
 				l_row := ic
@@ -141,7 +141,7 @@ feature -- Contacts
 		do
 			db.execute_with_args (
 				"INSERT INTO contacts (name, email, subject, message, ip_address) VALUES (?, ?, ?, ?, ?)",
-				<<a_name, a_email, a_subject, a_message, a_ip>>
+				{ARRAY [detachable ANY]} <<a_name, a_email, a_subject, a_message, a_ip>>
 			)
 			if db.has_error then
 				if attached db.last_error_message as l_err then
@@ -165,7 +165,7 @@ feature -- Contacts
 			create Result.make (a_limit)
 			l_result := db.query_with_args (
 				"SELECT id, name, email, subject, message, created_at, read_at FROM contacts ORDER BY created_at DESC LIMIT ?",
-				<<a_limit>>
+				{ARRAY [detachable ANY]} <<a_limit>>
 			)
 			across l_result.rows as ic loop
 				l_row := ic
@@ -191,7 +191,7 @@ feature -- Contacts
 		do
 			db.execute_with_args (
 				"UPDATE contacts SET read_at = datetime('now') WHERE id = ?",
-				<<a_id>>
+				{ARRAY [detachable ANY]} <<a_id>>
 			)
 		end
 
@@ -217,7 +217,7 @@ feature -- Sessions
 		do
 			db.execute_with_args (
 				"INSERT INTO sessions (token, expires_at) VALUES (?, datetime('now', '+' || ? || ' hours'))",
-				<<a_token, a_hours>>
+				{ARRAY [detachable ANY]} <<a_token, a_hours>>
 			)
 			Result := not db.has_error
 			if Result then
@@ -235,7 +235,7 @@ feature -- Sessions
 		do
 			l_result := db.query_with_args (
 				"SELECT COUNT(*) as cnt FROM sessions WHERE token = ? AND expires_at > datetime('now')",
-				<<a_token>>
+				{ARRAY [detachable ANY]} <<a_token>>
 			)
 			if not l_result.rows.is_empty then
 				Result := l_result.rows.first.integer_value ("cnt") > 0
@@ -248,7 +248,7 @@ feature -- Sessions
 			db_open: db.is_open
 			token_not_empty: not a_token.is_empty
 		do
-			db.execute_with_args ("DELETE FROM sessions WHERE token = ?", <<a_token>>)
+			db.execute_with_args ("DELETE FROM sessions WHERE token = ?", {ARRAY [detachable ANY]} <<a_token>>)
 			log_info ("database", "Session deleted")
 		end
 

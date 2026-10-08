@@ -86,7 +86,7 @@ feature -- Processing
 			if l_db.is_open then
 				l_db.execute_with_args (
 					"INSERT INTO analytics (path, method, ip_address, user_agent, referrer, response_code, response_time_ms) VALUES (?, ?, ?, ?, ?, ?, ?)",
-					<<l_path, l_method, l_ip, truncate (l_user_agent, 500), truncate (l_referrer, 500), a_response.status_code, l_elapsed_ms>>
+					{ARRAY [detachable ANY]} <<l_path, l_method, l_ip, truncate (l_user_agent, 500), truncate (l_referrer, 500), a_response.status_code, l_elapsed_ms>>
 				)
 				if l_db.has_error and then attached l_db.last_error_message as l_err then
 					log_info ("analytics", "Failed to log: " + l_err.to_string_8)
