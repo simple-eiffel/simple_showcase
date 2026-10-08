@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (build warnings)
+- The test build now compiles with zero warnings, so `ec.sh test` exits 0
+  instead of 2. The 9 VWMA(1) warnings in SSC_DATABASE and
+  SSC_ANALYTICS_MIDDLEWARE came from untyped `<<...>>` SQL argument arrays
+  passed as `ARRAY [detachable ANY]`; each one is now typed explicitly.
+
 ### Fixed (process output)
 - The email debug log UTF-8 encodes curl's output instead of `to_string_8`,
   which failed on characters above U+00FF since simple_process 1.1.0.
