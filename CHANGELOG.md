@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed (process output)
+- The email debug log UTF-8 encodes curl's output instead of `to_string_8`,
+  which failed on characters above U+00FF since simple_process 1.1.0.
+
+
 ### Changed
 - Testing config updates, AutoTest fixes, .gitignore cleanup
 - Add SCOOP concurrency capability
