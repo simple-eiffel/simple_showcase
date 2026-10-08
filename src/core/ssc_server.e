@@ -629,14 +629,14 @@ feature {NONE} -- Email
 
 			log_debug ("email", "Output length: " + l_output.count.out)
 			if not l_output.is_empty then
-				log_debug ("email", "Output: " + l_output.to_string_8)
+				log_debug ("email", "Output: " + {UTF_CONVERTER}.string_32_to_utf_8_string_8 (l_output))
 			end
 
 			if l_output.is_empty then
 				log_info ("email", "Email sent successfully via " + l_url)
 				Result := True
 			else
-				log_debug ("email", "Endpoint " + l_url + " failed: " + l_output.to_string_8)
+				log_debug ("email", "Endpoint " + l_url + " failed: " + {UTF_CONVERTER}.string_32_to_utf_8_string_8 (l_output))
 				Result := False
 			end
 		end
