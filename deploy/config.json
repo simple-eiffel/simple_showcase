@@ -1,7 +1,7 @@
 {
 	"mode": "production",
 	"port": 80,
-	"base_url": "http://141.148.86.105",
+	"base_url": "http://your-server",
 	"contact_email": "rix.larry@gmail.com",
 	"smtp_endpoints": [
 		{"host": "smtp.gmail.com", "port": 465, "protocol": "smtps"},

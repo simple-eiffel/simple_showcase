@@ -54,3 +54,4 @@ output/
 showcase_dev.db
 test_showcase.db
 *.epr
+.claude/settings.local.json
