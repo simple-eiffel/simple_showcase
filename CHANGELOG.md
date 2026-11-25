@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Security
+- 2026-11-25: `deploy/curl.exe` is curl 8.23.0 (curl.se build 8.23.0_10; 8.17.0 before), LibreSSL 4.4.1 and libssh2 1.11.1 built in, the same build simple_pdf ships as its libcurl.dll. `deploy/curl-ca-bundle.crt` is curl.se's Mozilla extract of 2026-11-05 (2025-11-04 before; SHA-256 427c064216761a1e72a8b30f0d954d08cb6e4435a82091fb865afd20c8497285, as published). Removed `deploy/libcurl-x64.dll`: curl.exe has libcurl built in and simple_showcase.exe imports only Windows DLLs. curl.exe makes a verified HTTPS request with only System32 on PATH.
+
 ### Fixed (build warnings)
 - The test build now compiles with zero warnings, so `ec.sh test` exits 0
   instead of 2. The 9 VWMA(1) warnings in SSC_DATABASE and
